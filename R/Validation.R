@@ -5,12 +5,11 @@
 #' weighted edges, \code{check_graph} allows it as all functions in
 #' \link{\pkg{gclust}} ignore edge weights.
 #'
-#' @noRd
-#'
 #' @param graph An igraph object
 #' @return \code{check_graph} does not return a value. Instead, it will call
 #' \code{stop} if all necessary properties are not satisfied.
 #'
+#' @noRd
 #' @keywords methods error
 #'
 #' @examples
@@ -29,6 +28,8 @@ check_graph <- function(graph)
 
   if(!is.simple(graph))
     stop("graph must be simple (cannot have multiple edges or loops)");
+
+  invisible(TRUE);
 }
 
 # Alias for check_graph

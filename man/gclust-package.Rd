@@ -33,7 +33,7 @@ heirarchal clustering. For the main algorithm, see
   a vertex's neighbors to all other vertices and then considering the
   dissimilarity between two vertices v_i and v_j to be the minimum of these
   two distances. This dissimilarity matrix can be computed using
-  \code{\link{mean_neighbor_distances_min}} or \code{\link{get_d2_min}}.
+  \code{\link{mean_neighbor_dist_min}} or \code{\link{get_d2_min}}.
   Alternatively, a \code{\link{dist}} object can be returned.
 }
 
@@ -76,27 +76,28 @@ heirarchal clustering. For the main algorithm, see
   provided sample networks are cited and contain sources.
 
   \code{\link{karate}}, \code{\link{dolphins}}, \code{\link{football}},
-  \code{\link{polblogs}}, \code{\link{polbooks}}, \code{\link{davisclub}},
-  \code{\link{santafe}}
+  \code{\link{polblogs}}, \code{\link{polbooks}}, \code{\link{davisclub}}
 }
 \author{
-Dr. Kenneth Berenhaut <\email{berenhks@wfu.edu}>, Peter S. Barr
-  <\email{barrps12@wfu.edu}>, Alyssa Kogel <\email{kogeam11@wfu.edu}>
+Dr. Kenneth Berenhaut \email{berenhks@wfu.edu}, Peter S. Barr
+  \email{barrps12@wfu.edu}, Alyssa M. Kogel \email{kogeam11@wfu.edu}
 }
 \references{
 Need some references here, gotta be all official and what not. Probably
   will cite ourselves when published as well.
-}
-\seealso{
-Wake Forest University, Department of Mathematics and Statistics:
-  \url{http://college.wfu.edu/math/}
+
+  Wake Forest University, Department of Mathematics and Statistics:
+  \url{http://college.wfu.edu/math}
 
   Wake Forest University, Department of Computer Science:
-  \url{http://college.wfu.edu/cs/}
-
-\code{\link{all_shortest_paths_uwud_fast}},
-  \code{\link{cluster_berenhaut}}, \code{\link{distances_uwud_fast}},
-  \code{\link{get_d2_min}}, \code{\link{mean_neighbor_distances_min}}
+  \url{http://college.wfu.edu/cs}
+}
+\seealso{
+\code{\link{cluster_berenhaut}};
+  \code{\link{all_shortest_paths_uwud_fast}},
+  \code{\link{distances_uwud_fast}};
+  \code{\link{get_d2_min}},
+  \code{\link{mean_neighbor_dist_min}}
 }
 \keyword{cluster}
 \keyword{graphs}

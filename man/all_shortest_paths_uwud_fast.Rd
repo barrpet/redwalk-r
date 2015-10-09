@@ -6,29 +6,24 @@
 \title{All Pairs Shortest Paths (Unweighted & Undirected)}
 \usage{
 all_shortest_paths_uwud_fast(graph)
-
-distances_uwud_fast(graph)
 }
 \arguments{
 \item{graph}{an igraph object.}
 }
 \value{
-returns a symmetric "matrix" object where the i,jth entry is the
-shortest path distance from v_i to v_j for all vertices in \code{graph}.
+returns a symmetric "matrix" object where the \eqn{ij}th entry is the
+shortest path distance from \eqn{v_i} to \eqn{v_j}, \eqn{d(v_i,v_j)}, for all
+\eqn{v_i,v_j \in V}.
 }
 \description{
-Computes all pairs shortest paths for an unweighted and undirected graph.
-For graphs matching this description, this function is much faster than the
-function \code{\link{distances}} in the igraph package.
+Computes all pairs shortest paths for an unweighted, undirected graph. For
+graphs with these properties, this function is much faster than the function
+\code{\link{distances}} in the \pkg{\link{igraph}} package.
 }
-\section{Functions}{
-\itemize{
-\item \code{distances_uwud_fast}: 
-}}
 \examples{
-require(stats)
-cb <- cluster_berenhaut(karate)
-plot(cb)
+sp <- all_shortest_paths_uwud_fast(dolphins)
+sp
+all(sp == igraph::distances(dolphins))
 }
 \keyword{graphs}
 

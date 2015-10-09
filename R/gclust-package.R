@@ -1,8 +1,7 @@
-#' @useDynLib gclust, .registration = TRUE
-#' @import igraph
+#' @useDynLib gclust
+#' @importFrom igraph as_edgelist vcount ecount is.directed is.connected is.simple
 #' @importFrom stats as.dist hclust
 #' @importFrom Rcpp evalCpp
-
 NULL
 
 #' The gclust package
@@ -16,8 +15,8 @@ NULL
 #' @name gclust-package
 #' @aliases gclust-package gclust
 #' @docType package
-#' @author Dr. Kenneth Berenhaut <\email{berenhks@@wfu.edu}>, Peter S. Barr
-#'   <\email{barrps12@@wfu.edu}>, Alyssa Kogel <\email{kogeam11@@wfu.edu}>
+#' @author Dr. Kenneth Berenhaut \email{berenhks@@wfu.edu}, Peter S. Barr
+#'   \email{barrps12@@wfu.edu}, Alyssa M. Kogel \email{kogeam11@@wfu.edu}
 #' @keywords cluster graphs package
 #'
 #' @section Community Detection:
@@ -38,7 +37,7 @@ NULL
 #'   a vertex's neighbors to all other vertices and then considering the
 #'   dissimilarity between two vertices v_i and v_j to be the minimum of these
 #'   two distances. This dissimilarity matrix can be computed using
-#'   \code{\link{mean_neighbor_distances_min}} or \code{\link{get_d2_min}}.
+#'   \code{\link{mean_neighbor_dist_min}} or \code{\link{get_d2_min}}.
 #'   Alternatively, a \code{\link{dist}} object can be returned.
 #'
 #' @section Shortest Paths:
@@ -75,23 +74,23 @@ NULL
 #'   provided sample networks are cited and contain sources.
 #'
 #'   \code{\link{karate}}, \code{\link{dolphins}}, \code{\link{football}},
-#'   \code{\link{polblogs}}, \code{\link{polbooks}}, \code{\link{davisclub}},
-#'   \code{\link{santafe}}
+#'   \code{\link{polblogs}}, \code{\link{polbooks}}, \code{\link{davisclub}}
 #'
 #' @references
 #'   Need some references here, gotta be all official and what not. Probably
 #'   will cite ourselves when published as well.
 #'
-#' @seealso
 #'   Wake Forest University, Department of Mathematics and Statistics:
-#'   \url{http://college.wfu.edu/math/}
+#'   \url{http://college.wfu.edu/math}
 #'
 #'   Wake Forest University, Department of Computer Science:
-#'   \url{http://college.wfu.edu/cs/}
+#'   \url{http://college.wfu.edu/cs}
 #'
 #' @seealso
+#'   \code{\link{cluster_berenhaut}};
 #'   \code{\link{all_shortest_paths_uwud_fast}},
-#'   \code{\link{cluster_berenhaut}}, \code{\link{distances_uwud_fast}},
-#'   \code{\link{get_d2_min}}, \code{\link{mean_neighbor_distances_min}}
+#'   \code{\link{distances_uwud_fast}};
+#'   \code{\link{get_d2_min}},
+#'   \code{\link{mean_neighbor_dist_min}}
 
 NULL

@@ -12,21 +12,32 @@
 #' modularity that is competitive with the top community detection algorithms).
 #'
 #' @param graph an igraph object.
-#' @param short_paths either a |V|x|V| symmetric matrix containing the shortest
+#' @param short_paths either a \eqn{|V|x|V|} symmetric matrix containing the shortest
 #' path distances between the vertices in \code{graph} or a \code{\link{dist}}
-#' object from the \code{\link{stats}} package. If \code{NULL} (default), the
-#' shortest paths will be calculated. If shortest paths are available, this
-#' functions runs ~50\% faster. Counterintuitively, this function will be faster
-#' if \code{short_paths} is of class "matrix" instead of class "dist".
-#' @return \code{cluster_berenhaut} returns an \code{\link{hclust}} object from
-#' the \code{\link{stats}} package.
+#' object from the \pkg{\link{stats}} package. If \code{NULL} (default), the
+#' shortest paths will be calculated. Note: much faster if \code{short_paths} is
+#' provided and much faster if \code{short_paths} is of class "matrix" rather
+#' than "dist".
+#' @return \code{cluster_berenhaut} returns a \code{\link{hclust}} object from
+#' the \pkg{\link{stats}} package.
 #' @export
 #' @keywords cluster graphs
 #'
 #' @examples
 #' require(stats)
 #' cb <- cluster_berenhaut(karate)
+#' ## cb is an hclust object
 #' plot(cb)
+#' ## membership for different community sizes (k)
+#' cutree(cb, k = 2)
+#' cutree(cb, k = 3)
+#'
+#' ## using precomputed shortest paths
+#' sp <- all_shortest_paths_uwud_fast(dolphins)
+#' cbd <- cluster_berenhaut(dolphins, short_paths = sp)
+#' plot(cbd)
+#' cutree(cbd, k = 2)
+#' cutree(cbd, k = 4)
 #'
 cluster_berenhaut <- function(graph, short_paths = NULL)
 {
@@ -69,3 +80,8 @@ cluster_berenhaut <- function(graph, short_paths = NULL)
   # return the hclust object
   return(res);
 }
+
+# Alias for cluster_berenhaut
+#' @export berenhaut.community
+#' @describeIn cluster_berenhaut
+berenhaut.community <- cluster_berenhaut
