@@ -3,51 +3,52 @@
 #include <queue>
 #include "AdjacencyList.h"
 
-Rcpp::NumericMatrix d2_berenhaut_sp_c(const AdjacencyList& adj,
+Rcpp::NumericVector d2_berenhaut_sp_c(const AdjacencyList& adj,
   const Rcpp::NumericMatrix& sp)
 {
   //Get number of vertices
   long nv = adj.vcount();
 
-  //Allocate D2
-  Rcpp::NumericMatrix D2(nv, nv);
+  //Allocate D2 - what will become a "dist"
+  //number of entries in contiguous symmetric matrix with no diagonal
+  long ns = (nv * nv - nv) / 2;
+  Rcpp::NumericVector D2(ns);
 
   //Do avg shortest paths of neighbors
-  for(long i = 0; i < nv; i++)
+  //this can be optimized
+  long idx = 0;
+  double msp1, msp2;
+  for(long i = 0; i < (nv-1); i++)
   {
-    for(long j = 0; j < nv; j++)
+    for(long j = (i+1); j < nv; j++)
     {
-      if(i != j)
-        for(long n : adj[i])
-          D2(i,j) += sp(n,j);
+      msp1 = msp2 = 0;
+      for(long n : adj[i])
+        msp1 += sp(n,j);
+      msp1 /= adj.degree(i);
+      for(long n : adj[j])
+        msp2 += sp(n,i);
+      msp2 /= adj.degree(j);
+      D2(idx) = (msp1 < msp2) ? msp1 : msp2;
+      idx++;
     }
-    Rcpp::checkUserInterrupt();
-    //TODO: column or row major storage for faster division
-    gclust::float_t deg = adj.degree(i);
-    D2.row(i) = D2.row(i) / deg;
-  }
-
-  //Minimize (make symmetric with min)
-  //Set D2_ij to min(D2_ij, D2_ji)
-  for(long i = 0; i < nv; i++)
-  {
-    for(long j = i+1; j < nv; j++)
-    {
-      double dist1 = D2(i,j);
-      double dist2 = D2(j,i);
-      if(dist1 <= dist2)
-        D2(j,i) = dist1;
-      else
-        D2(i,j) = dist2;
-    }
+    //let user bail if taking too long
     Rcpp::checkUserInterrupt();
   }
 
-  //Return the symmetric D2
+  /*
+  D2.attr("Size") = nv;
+  D2.attr("call") = Rcpp::NA;
+  D2.attr("Diag") = false;
+  D2.attr("Upper") = false;
+  D2.attr("class") = "dist";
+  */
+
+  //Return the numeric vector
   return D2;
 }
 
-Rcpp::NumericMatrix d2_berenhaut_sp_c(long nv, const Rcpp::IntegerMatrix& el,
+Rcpp::NumericVector d2_berenhaut_sp_c(long nv, const Rcpp::IntegerMatrix& el,
   const Rcpp::NumericMatrix& sp)
 {
   //set up adjacency list
@@ -57,7 +58,7 @@ Rcpp::NumericMatrix d2_berenhaut_sp_c(long nv, const Rcpp::IntegerMatrix& el,
   return d2_berenhaut_sp_c(adj, sp);
 }
 
-Rcpp::NumericMatrix d2_berenhaut_c(long nv, const Rcpp::IntegerMatrix& el)
+Rcpp::NumericVector d2_berenhaut_c(long nv, const Rcpp::IntegerMatrix& el)
 {
   //Set up adjacency list
   AdjacencyList adj(nv, el);

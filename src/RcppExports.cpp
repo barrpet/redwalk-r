@@ -7,7 +7,7 @@
 using namespace Rcpp;
 
 // d2_berenhaut_sp_c
-Rcpp::NumericMatrix d2_berenhaut_sp_c(long nv, const Rcpp::IntegerMatrix& el, const Rcpp::NumericMatrix& sp);
+Rcpp::NumericVector d2_berenhaut_sp_c(long nv, const Rcpp::IntegerMatrix& el, const Rcpp::NumericMatrix& sp);
 RcppExport SEXP gclust_d2_berenhaut_sp_c(SEXP nvSEXP, SEXP elSEXP, SEXP spSEXP) {
 BEGIN_RCPP
     Rcpp::RObject __result;
@@ -19,7 +19,7 @@ BEGIN_RCPP
 END_RCPP
 }
 // d2_berenhaut_c
-Rcpp::NumericMatrix d2_berenhaut_c(long nv, const Rcpp::IntegerMatrix& el);
+Rcpp::NumericVector d2_berenhaut_c(long nv, const Rcpp::IntegerMatrix& el);
 RcppExport SEXP gclust_d2_berenhaut_c(SEXP nvSEXP, SEXP elSEXP) {
 BEGIN_RCPP
     Rcpp::RObject __result;

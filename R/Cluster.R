@@ -52,7 +52,7 @@ cluster_berenhaut <- function(graph, short_paths = NULL)
 
   # Check if short_paths is provided, calculate if not
   if(is.null(short_paths)) {
-    D2 <- as.dist(d2_berenhaut_c(nv, edglst));
+    D2 <- d2_berenhaut_c(nv, edglst);
   } else {
     # if given shortest paths as dist, convert to matrix
     if(class(short_paths) == "dist") {
@@ -71,8 +71,14 @@ cluster_berenhaut <- function(graph, short_paths = NULL)
     # TODO: check symmetric? will eat up time
 
     # Finally get D2
-    D2 <- as.dist(d2_berenhaut_sp_c(nv, edglst, short_paths));
+    D2 <- d2_berenhaut_sp_c(nv, edglst, short_paths);
   }
+
+  # Make D2 a dist object
+  attr(D2, "Diag") <- FALSE;
+  attr(D2, "Upper") <- FALSE;
+  attr(D2, "Size") <- nv;
+  attr(D2, "class") <- "dist";
 
   # Do heirarcal clustering using average linkage
   res <- hclust(D2, method = "average");

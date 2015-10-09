@@ -15,7 +15,6 @@
 #' shortest paths will be calculated. If shortest paths are available, this
 #' functions runs at least 50\% faster. Counterintuitively, this function will
 #' be faster if \code{short_paths} is of class "matrix" instead of class "dist".
-#' @param as_dist if \code{FALSE} (default), will return a "matrix" object. If
 #' \code{TRUE}, will return a "\code{\link{dist}}" object from \pkg{stats}.
 #' @return \code{mean_neighbor_dist_min} returns either a "matrix" or a "dist"
 #' object representing dissimilarities between vertices in a graph.
@@ -30,7 +29,7 @@
 #' sp <- all_shortest_paths_uwud_fast(dolphins)
 #' mean_neighbor_dist_min(dolphins, short_paths = sp)
 #'
-mean_neighbor_dist_min <- function(graph, short_paths = NULL, as_dist = FALSE)
+mean_neighbor_dist_min <- function(graph, short_paths = NULL)
 {
   # Check that the graph is valid
   check_graph(graph);
@@ -43,11 +42,7 @@ mean_neighbor_dist_min <- function(graph, short_paths = NULL, as_dist = FALSE)
 
   # Check if short_paths is provided, calculate if not
   if(is.null(short_paths)) {
-    if(as_dist) {
-      return(as.dist(d2_berenhaut_c(nv, edglst)));
-    } else {
-      return(d2_berenhaut_c(nv, edglst));
-    }
+    D2 <- d2_berenhaut_c(nv, edglst);
   } else {
     # if given shortest paths as dist, convert to matrix
     if(class(short_paths) == "dist") {
@@ -66,12 +61,17 @@ mean_neighbor_dist_min <- function(graph, short_paths = NULL, as_dist = FALSE)
     # TODO: check symmetric? will eat up time
 
     # Finally get D2
-    if(as_dist) {
-      return(as.dist(d2_berenhaut_sp_c(nv, edglst, short_paths)));
-    } else {
-      return(d2_berenhaut_sp_c(nv, edglst, short_paths));
-    }
+    D2 <- d2_berenhaut_sp_c(nv, edglst, short_paths);
   }
+
+  # Make D2 a dist object
+  attr(D2, "Diag") <- FALSE;
+  attr(D2, "Upper") <- FALSE;
+  attr(D2, "Size") <- nv;
+  attr(D2, "class") <- "dist";
+
+  # Return the dist object
+  return(D2);
 }
 
 # Alias for mean_neighbor_dist_min

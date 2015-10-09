@@ -17,7 +17,7 @@ test_that("mean_neighbor_dist_min (karate) works", {
   library("igraph");
   library("gclust");
   g <- karate;
-  d2 <- round(mean_neighbor_dist_min(g, as_dist = FALSE), 8);
+  d2 <- as.matrix(round(mean_neighbor_dist_min(g), 8));
   d_1_34 <- round(get_avg_nbr_shrt_path_min(g, 1, 34), 8);
   d_6_10 <- round(get_avg_nbr_shrt_path_min(g, 6, 10), 8);
   expect_that(d2[1,34], equals(d_1_34));
@@ -34,7 +34,7 @@ test_that("mean_neighbor_dist_min (dolphins) works", {
   library("igraph");
   library("gclust");
   g <- dolphins;
-  d2 <- round(mean_neighbor_dist_min(g, as_dist = FALSE), 8);
+  d2 <- as.matrix(round(mean_neighbor_dist_min(g), 8));
   d_4_40 <- round(get_avg_nbr_shrt_path_min(g, 4, 40), 8);
   expect_that(d2[4,40], equals(d_4_40));
   expect_that(d2[40,4], equals(d_4_40));
