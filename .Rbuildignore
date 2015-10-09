@@ -1,0 +1,11 @@
+^gclust.Rproj$
+^.*\.Rproj$
+^.*\.Rproj\.user$
+^.*\.Rhistory$
+^src/.*\.o$
+^src/.*\.so$
+^README.md$
+^TODO.md$
+^\.git$
+^\.gitignore$
+^\.Rproj\.user$
