@@ -3,7 +3,7 @@
 #include <queue>
 #include "AdjacencyList.h"
 
-Rcpp::NumericMatrix all_shortest_paths_c(const AdjacencyList& adj)
+Rcpp::NumericMatrix all_pairs_shortest_paths_c(const AdjacencyList& adj)
 {
   const auto nv = adj.vcount();
   Rcpp::NumericMatrix sp(nv, nv);
@@ -30,9 +30,8 @@ Rcpp::NumericMatrix all_shortest_paths_c(const AdjacencyList& adj)
     return sp;
 }
 
-Rcpp::NumericMatrix all_shortest_paths_c(gclust::index_t nv,
+Rcpp::NumericMatrix all_pairs_shortest_paths_c(gclust::index_t nv,
   const Rcpp::IntegerMatrix& el)
 {
-  AdjacencyList adj(nv, el);
-  return all_shortest_paths_c(adj);
+  return all_pairs_shortest_paths_c(AdjacencyList(nv, el));
 }

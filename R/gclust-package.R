@@ -1,7 +1,6 @@
 #' @useDynLib gclust
-#' @importFrom igraph as_edgelist vcount ecount is.directed is.connected is.simple
-#' @importFrom stats as.dist hclust
 #' @importFrom Rcpp evalCpp
+#' @importFrom igraph as_edgelist vcount is.directed is.connected is.simple
 NULL
 
 #' The gclust package
@@ -32,26 +31,21 @@ NULL
 #'   the highest of most commonly used algorithms for the widest variety of
 #'   network structures.
 #'
-#' @section Distances:
+#' @section Dissimilarity:
 #'   The heart of the algorithm involves computing the average shortest paths of
 #'   a vertex's neighbors to all other vertices and then considering the
 #'   dissimilarity between two vertices v_i and v_j to be the minimum of these
-#'   two distances. This dissimilarity matrix can be computed using
-#'   \code{\link{mean_neighbor_dist_min}} or \code{\link{get_d2_min}}.
-#'   Alternatively, a \code{\link{dist}} object can be returned.
+#'   two distances.
 #'
 #' @section Shortest Paths:
 #'   The above functions can be called with or without the shortest paths
 #'   provided. If shortest paths are not provided, they will be calculated on
 #'   each function call. For faster performance, precomputing all pairs shortest
 #'   paths for a network will provide much faster results, as a breadth first
-#'   search for every vertex has time complexity O(n^2 + nm). Although igraph
-#'   provides functions for calculating these values, this package includes two
-#'   equivalent functions, \code{\link{all_shortest_paths_uwud_fast}} and
-#'   \code{\link{distances_uwud_fast}} which are optimized for the computation
-#'   of all pairs shortest paths on undirected, unweighted graphs. These
-#'   functions are considerably faster than their igraph equivalents for this
-#'   problem and should be used when performance is critical.
+#'   search for every vertex has time complexity \eqn{O(n^2 + nm)}. Although
+#'   igraph provides functions for calculating these values, this package
+#'   includes an equivalent function, \code{\link{all_pairs_shortest_paths}}
+#'   which is optimized for the APSP problem on undirected, unweighted graphs.
 #'
 #' @section Heirarchal Clustering:
 #'   gclust uses \code{\link{hclust}} objects to return information about
@@ -88,9 +82,7 @@ NULL
 #'
 #' @seealso
 #'   \code{\link{cluster_berenhaut}};
-#'   \code{\link{all_shortest_paths_uwud_fast}},
+#'   \code{\link{all_pairs_shortest_paths}},
 #'   \code{\link{distances_uwud_fast}};
-#'   \code{\link{get_d2_min}},
-#'   \code{\link{mean_neighbor_dist_min}}
 
 NULL

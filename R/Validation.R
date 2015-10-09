@@ -6,8 +6,9 @@
 #' \link{\pkg{gclust}} ignore edge weights.
 #'
 #' @param graph An igraph object
-#' @return \code{check_graph} does not return a value. Instead, it will call
-#' \code{stop} if all necessary properties are not satisfied.
+#' @return returns \code{TRUE} invisibly if the graph is valid. Otherwise,
+#' \code{stop} is called, thowing an error and displaying the reason the graph
+#' did not pass the check.
 #'
 #' @noRd
 #' @keywords methods error

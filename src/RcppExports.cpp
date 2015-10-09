@@ -6,37 +6,37 @@
 
 using namespace Rcpp;
 
-// d2_berenhaut_sp_c
-Rcpp::NumericVector d2_berenhaut_sp_c(long nv, const Rcpp::IntegerMatrix& el, const Rcpp::NumericMatrix& sp);
-RcppExport SEXP gclust_d2_berenhaut_sp_c(SEXP nvSEXP, SEXP elSEXP, SEXP spSEXP) {
+// dissimilarity_sp_c
+Rcpp::NumericVector dissimilarity_sp_c(long nv, const Rcpp::IntegerMatrix& el, const Rcpp::NumericMatrix& sp);
+RcppExport SEXP gclust_dissimilarity_sp_c(SEXP nvSEXP, SEXP elSEXP, SEXP spSEXP) {
 BEGIN_RCPP
     Rcpp::RObject __result;
     Rcpp::traits::input_parameter< long >::type nv(nvSEXP);
     Rcpp::traits::input_parameter< const Rcpp::IntegerMatrix& >::type el(elSEXP);
     Rcpp::traits::input_parameter< const Rcpp::NumericMatrix& >::type sp(spSEXP);
-    __result = Rcpp::wrap(d2_berenhaut_sp_c(nv, el, sp));
+    __result = Rcpp::wrap(dissimilarity_sp_c(nv, el, sp));
     return __result;
 END_RCPP
 }
-// d2_berenhaut_c
-Rcpp::NumericVector d2_berenhaut_c(long nv, const Rcpp::IntegerMatrix& el);
-RcppExport SEXP gclust_d2_berenhaut_c(SEXP nvSEXP, SEXP elSEXP) {
+// dissimilarity_c
+Rcpp::NumericVector dissimilarity_c(long nv, const Rcpp::IntegerMatrix& el);
+RcppExport SEXP gclust_dissimilarity_c(SEXP nvSEXP, SEXP elSEXP) {
 BEGIN_RCPP
     Rcpp::RObject __result;
     Rcpp::traits::input_parameter< long >::type nv(nvSEXP);
     Rcpp::traits::input_parameter< const Rcpp::IntegerMatrix& >::type el(elSEXP);
-    __result = Rcpp::wrap(d2_berenhaut_c(nv, el));
+    __result = Rcpp::wrap(dissimilarity_c(nv, el));
     return __result;
 END_RCPP
 }
-// all_shortest_paths_c
-Rcpp::NumericMatrix all_shortest_paths_c(gclust::index_t nv, const Rcpp::IntegerMatrix& el);
-RcppExport SEXP gclust_all_shortest_paths_c(SEXP nvSEXP, SEXP elSEXP) {
+// all_pairs_shortest_paths_c
+Rcpp::NumericMatrix all_pairs_shortest_paths_c(gclust::index_t nv, const Rcpp::IntegerMatrix& el);
+RcppExport SEXP gclust_all_pairs_shortest_paths_c(SEXP nvSEXP, SEXP elSEXP) {
 BEGIN_RCPP
     Rcpp::RObject __result;
     Rcpp::traits::input_parameter< gclust::index_t >::type nv(nvSEXP);
     Rcpp::traits::input_parameter< const Rcpp::IntegerMatrix& >::type el(elSEXP);
-    __result = Rcpp::wrap(all_shortest_paths_c(nv, el));
+    __result = Rcpp::wrap(all_pairs_shortest_paths_c(nv, el));
     return __result;
 END_RCPP
 }

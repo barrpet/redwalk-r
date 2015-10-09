@@ -33,7 +33,7 @@
 #' cutree(cb, k = 3)
 #'
 #' ## using precomputed shortest paths
-#' sp <- all_shortest_paths_uwud_fast(dolphins)
+#' sp <- all_pairs_shortest_paths(dolphins)
 #' cbd <- cluster_berenhaut(dolphins, short_paths = sp)
 #' plot(cbd)
 #' cutree(cbd, k = 2)
@@ -46,13 +46,13 @@ cluster_berenhaut <- function(graph, short_paths = NULL)
 
   # Get number of vertices and edges, and create edgelist
   nv <- vcount(graph);
-  ne <- ecount(graph);
   edglst <- as_edgelist(graph, names = FALSE) - 1; # sub 1 for C++ functions
   storage.mode(edglst) <- "integer";
 
   # Check if short_paths is provided, calculate if not
+  # TODO: really bad that shortest paths is a matrix rather than dist
   if(is.null(short_paths)) {
-    D2 <- d2_berenhaut_c(nv, edglst);
+    D <- dissimilarity_c(nv, edglst);
   } else {
     # if given shortest paths as dist, convert to matrix
     if(class(short_paths) == "dist") {
@@ -68,23 +68,20 @@ cluster_berenhaut <- function(graph, short_paths = NULL)
     if(!all.equal(dim_sp, c(nv, nv))) {
       stop("short_paths has incorrect dimensions");
     }
-    # TODO: check symmetric? will eat up time
+    # TODO: check symmetric? won't be fast
 
-    # Finally get D2
-    D2 <- d2_berenhaut_sp_c(nv, edglst, short_paths);
+    # Finally get D
+    D <- dissimilarity_sp_c(nv, edglst, short_paths);
   }
 
-  # Make D2 a dist object
-  attr(D2, "Diag") <- FALSE;
-  attr(D2, "Upper") <- FALSE;
-  attr(D2, "Size") <- nv;
-  attr(D2, "class") <- "dist";
-
-  # Do heirarcal clustering using average linkage
-  res <- hclust(D2, method = "average");
+  # Make D a dist object
+  attr(D, "Diag") <- FALSE;
+  attr(D, "Upper") <- FALSE;
+  attr(D, "Size") <- nv;
+  attr(D, "class") <- "dist";
 
   # return the hclust object
-  return(res);
+  return(hclust_avg(D));
 }
 
 # Alias for cluster_berenhaut
