@@ -13,3 +13,19 @@ all_pairs_shortest_paths_c <- function(nv, el) {
     .Call('gclust_all_pairs_shortest_paths_c', PACKAGE = 'gclust', nv, el)
 }
 
+subsets_shortest_paths_c <- function(nv, el, s) {
+    .Call('gclust_subsets_shortest_paths_c', PACKAGE = 'gclust', nv, el, s)
+}
+
+get_thread_info <- function() {
+    invisible(.Call('gclust_get_thread_info', PACKAGE = 'gclust'))
+}
+
+sqrt_many <- function(v) {
+    .Call('gclust_sqrt_many', PACKAGE = 'gclust', v)
+}
+
+sqrt_many_omp <- function(v) {
+    .Call('gclust_sqrt_many_omp', PACKAGE = 'gclust', v)
+}
+

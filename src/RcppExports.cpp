@@ -40,3 +40,46 @@ BEGIN_RCPP
     return __result;
 END_RCPP
 }
+// subsets_shortest_paths_c
+Rcpp::NumericMatrix subsets_shortest_paths_c(gclust::index_t nv, const Rcpp::IntegerMatrix& el, const Rcpp::IntegerVector& s);
+RcppExport SEXP gclust_subsets_shortest_paths_c(SEXP nvSEXP, SEXP elSEXP, SEXP sSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject __result;
+    Rcpp::traits::input_parameter< gclust::index_t >::type nv(nvSEXP);
+    Rcpp::traits::input_parameter< const Rcpp::IntegerMatrix& >::type el(elSEXP);
+    Rcpp::traits::input_parameter< const Rcpp::IntegerVector& >::type s(sSEXP);
+    __result = Rcpp::wrap(subsets_shortest_paths_c(nv, el, s));
+    return __result;
+END_RCPP
+}
+// get_thread_info
+void get_thread_info();
+RcppExport SEXP gclust_get_thread_info() {
+BEGIN_RCPP
+    Rcpp::RNGScope __rngScope;
+    get_thread_info();
+    return R_NilValue;
+END_RCPP
+}
+// sqrt_many
+NumericVector sqrt_many(Rcpp::NumericVector v);
+RcppExport SEXP gclust_sqrt_many(SEXP vSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject __result;
+    Rcpp::RNGScope __rngScope;
+    Rcpp::traits::input_parameter< Rcpp::NumericVector >::type v(vSEXP);
+    __result = Rcpp::wrap(sqrt_many(v));
+    return __result;
+END_RCPP
+}
+// sqrt_many_omp
+NumericVector sqrt_many_omp(Rcpp::NumericVector v);
+RcppExport SEXP gclust_sqrt_many_omp(SEXP vSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject __result;
+    Rcpp::RNGScope __rngScope;
+    Rcpp::traits::input_parameter< Rcpp::NumericVector >::type v(vSEXP);
+    __result = Rcpp::wrap(sqrt_many_omp(v));
+    return __result;
+END_RCPP
+}
