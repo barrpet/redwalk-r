@@ -3,6 +3,8 @@
 
 #include "gclust_types.h"
 
+//TODO: aligned
+
 template <typename T, typename size_type = gclust::index_t>
 T* gclust_alloc(size_type n)
 {

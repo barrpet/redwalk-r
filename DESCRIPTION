@@ -1,17 +1,18 @@
 Package: gclust
 Type: Package
 Title: Network Community Detection
-Version: 0.5.0
-Date: 2015-10-08
+Version: 0.6.0
+Date: 2015-10-21
 Author: Berenhaut, K.S., Barr, P.S., Kogel, A.M.
 Maintainer: Peter Barr <barrps12@wfu.edu>
 Description: Community detection on networks.
 License: MIT + file LICENSE
 NeedsCompilation: yes
 Depends:
-    R (>= 3.1.0)
+    R (>= 3.1.0),
+    igraph (>= 1.0.0)
 Imports:
     Rcpp (>= 0.11.0),
-    igraph (>= 1.0.0)
-LinkingTo: Rcpp
+    RcppEigen (>= 0.3.2.5.0)
+LinkingTo: Rcpp, RcppEigen
 LazyData: true

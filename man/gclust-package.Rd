@@ -89,8 +89,7 @@ Need some references here, gotta be all official and what not. Probably
 }
 \seealso{
 \code{\link{cluster_berenhaut}};
-  \code{\link{all_pairs_shortest_paths}},
-  \code{\link{distances_uwud_fast}};
+  \code{\link{all_pairs_shortest_paths}};
 }
 \keyword{cluster}
 \keyword{graphs}

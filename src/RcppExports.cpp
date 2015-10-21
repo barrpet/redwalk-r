@@ -2,18 +2,19 @@
 // Generator token: 10BE3573-1514-4C36-9D1C-5A225CD40393
 
 #include "gclust_types.h"
+#include <RcppEigen.h>
 #include <Rcpp.h>
 
 using namespace Rcpp;
 
 // dissimilarity_sp_c
-Rcpp::NumericVector dissimilarity_sp_c(long nv, const Rcpp::IntegerMatrix& el, const Rcpp::NumericMatrix& sp);
+Rcpp::NumericVector dissimilarity_sp_c(long nv, const Rcpp::IntegerMatrix& el, const Eigen::MatrixXd& sp);
 RcppExport SEXP gclust_dissimilarity_sp_c(SEXP nvSEXP, SEXP elSEXP, SEXP spSEXP) {
 BEGIN_RCPP
     Rcpp::RObject __result;
     Rcpp::traits::input_parameter< long >::type nv(nvSEXP);
     Rcpp::traits::input_parameter< const Rcpp::IntegerMatrix& >::type el(elSEXP);
-    Rcpp::traits::input_parameter< const Rcpp::NumericMatrix& >::type sp(spSEXP);
+    Rcpp::traits::input_parameter< const Eigen::MatrixXd& >::type sp(spSEXP);
     __result = Rcpp::wrap(dissimilarity_sp_c(nv, el, sp));
     return __result;
 END_RCPP
@@ -29,8 +30,36 @@ BEGIN_RCPP
     return __result;
 END_RCPP
 }
+// check_openmp
+void check_openmp();
+RcppExport SEXP gclust_check_openmp() {
+BEGIN_RCPP
+    check_openmp();
+    return R_NilValue;
+END_RCPP
+}
+// dostuff_seq
+double dostuff_seq(const NumericVector& x);
+RcppExport SEXP gclust_dostuff_seq(SEXP xSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject __result;
+    Rcpp::traits::input_parameter< const NumericVector& >::type x(xSEXP);
+    __result = Rcpp::wrap(dostuff_seq(x));
+    return __result;
+END_RCPP
+}
+// dostuff_par
+double dostuff_par(const NumericVector& x);
+RcppExport SEXP gclust_dostuff_par(SEXP xSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject __result;
+    Rcpp::traits::input_parameter< const NumericVector& >::type x(xSEXP);
+    __result = Rcpp::wrap(dostuff_par(x));
+    return __result;
+END_RCPP
+}
 // all_pairs_shortest_paths_c
-Rcpp::NumericMatrix all_pairs_shortest_paths_c(gclust::index_t nv, const Rcpp::IntegerMatrix& el);
+Eigen::MatrixXd all_pairs_shortest_paths_c(gclust::index_t nv, const Rcpp::IntegerMatrix& el);
 RcppExport SEXP gclust_all_pairs_shortest_paths_c(SEXP nvSEXP, SEXP elSEXP) {
 BEGIN_RCPP
     Rcpp::RObject __result;
@@ -41,7 +70,7 @@ BEGIN_RCPP
 END_RCPP
 }
 // subsets_shortest_paths_c
-Rcpp::NumericMatrix subsets_shortest_paths_c(gclust::index_t nv, const Rcpp::IntegerMatrix& el, const Rcpp::IntegerVector& s);
+Eigen::MatrixXd subsets_shortest_paths_c(gclust::index_t nv, const Rcpp::IntegerMatrix& el, const Rcpp::IntegerVector& s);
 RcppExport SEXP gclust_subsets_shortest_paths_c(SEXP nvSEXP, SEXP elSEXP, SEXP sSEXP) {
 BEGIN_RCPP
     Rcpp::RObject __result;
@@ -49,6 +78,19 @@ BEGIN_RCPP
     Rcpp::traits::input_parameter< const Rcpp::IntegerMatrix& >::type el(elSEXP);
     Rcpp::traits::input_parameter< const Rcpp::IntegerVector& >::type s(sSEXP);
     __result = Rcpp::wrap(subsets_shortest_paths_c(nv, el, s));
+    return __result;
+END_RCPP
+}
+// dissimilarity_subsets_sp_c
+Rcpp::NumericVector dissimilarity_subsets_sp_c(int nv, const Rcpp::IntegerMatrix& el, const Rcpp::IntegerVector& s, const Eigen::MatrixXd& sp);
+RcppExport SEXP gclust_dissimilarity_subsets_sp_c(SEXP nvSEXP, SEXP elSEXP, SEXP sSEXP, SEXP spSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject __result;
+    Rcpp::traits::input_parameter< int >::type nv(nvSEXP);
+    Rcpp::traits::input_parameter< const Rcpp::IntegerMatrix& >::type el(elSEXP);
+    Rcpp::traits::input_parameter< const Rcpp::IntegerVector& >::type s(sSEXP);
+    Rcpp::traits::input_parameter< const Eigen::MatrixXd& >::type sp(spSEXP);
+    __result = Rcpp::wrap(dissimilarity_subsets_sp_c(nv, el, s, sp));
     return __result;
 END_RCPP
 }

@@ -1,6 +1,7 @@
 #' @useDynLib gclust
 #' @importFrom Rcpp evalCpp
-#' @importFrom igraph as_edgelist vcount is.directed is.connected is.simple
+#' @import RcppEigen
+#' @importFrom igraph as_edgelist vcount is.igraph is.directed is.connected is.weighted is.simple V distances graph.laplacian degree neighbors
 NULL
 
 #' The gclust package
@@ -82,7 +83,6 @@ NULL
 #'
 #' @seealso
 #'   \code{\link{cluster_berenhaut}};
-#'   \code{\link{all_pairs_shortest_paths}},
-#'   \code{\link{distances_uwud_fast}};
+#'   \code{\link{all_pairs_shortest_paths}};
 
 NULL

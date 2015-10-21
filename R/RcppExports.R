@@ -9,11 +9,27 @@ dissimilarity_c <- function(nv, el) {
     .Call('gclust_dissimilarity_c', PACKAGE = 'gclust', nv, el)
 }
 
+check_openmp <- function() {
+    invisible(.Call('gclust_check_openmp', PACKAGE = 'gclust'))
+}
+
+dostuff_seq <- function(x) {
+    .Call('gclust_dostuff_seq', PACKAGE = 'gclust', x)
+}
+
+dostuff_par <- function(x) {
+    .Call('gclust_dostuff_par', PACKAGE = 'gclust', x)
+}
+
 all_pairs_shortest_paths_c <- function(nv, el) {
     .Call('gclust_all_pairs_shortest_paths_c', PACKAGE = 'gclust', nv, el)
 }
 
 subsets_shortest_paths_c <- function(nv, el, s) {
     .Call('gclust_subsets_shortest_paths_c', PACKAGE = 'gclust', nv, el, s)
+}
+
+dissimilarity_subsets_sp_c <- function(nv, el, s, sp) {
+    .Call('gclust_dissimilarity_subsets_sp_c', PACKAGE = 'gclust', nv, el, s, sp)
 }
 

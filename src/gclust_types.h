@@ -2,7 +2,7 @@
 #define GCLUST_BASE_H
 
 #include <limits>
-#include <Rcpp.h>
+#include <RcppEigen.h>
 
 #ifndef GCLUST_FLOAT_TYPE
 #define GCLUST_FLOAT_TYPE double
