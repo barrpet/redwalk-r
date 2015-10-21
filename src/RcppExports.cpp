@@ -52,34 +52,3 @@ BEGIN_RCPP
     return __result;
 END_RCPP
 }
-// get_thread_info
-void get_thread_info();
-RcppExport SEXP gclust_get_thread_info() {
-BEGIN_RCPP
-    Rcpp::RNGScope __rngScope;
-    get_thread_info();
-    return R_NilValue;
-END_RCPP
-}
-// sqrt_many
-NumericVector sqrt_many(Rcpp::NumericVector v);
-RcppExport SEXP gclust_sqrt_many(SEXP vSEXP) {
-BEGIN_RCPP
-    Rcpp::RObject __result;
-    Rcpp::RNGScope __rngScope;
-    Rcpp::traits::input_parameter< Rcpp::NumericVector >::type v(vSEXP);
-    __result = Rcpp::wrap(sqrt_many(v));
-    return __result;
-END_RCPP
-}
-// sqrt_many_omp
-NumericVector sqrt_many_omp(Rcpp::NumericVector v);
-RcppExport SEXP gclust_sqrt_many_omp(SEXP vSEXP) {
-BEGIN_RCPP
-    Rcpp::RObject __result;
-    Rcpp::RNGScope __rngScope;
-    Rcpp::traits::input_parameter< Rcpp::NumericVector >::type v(vSEXP);
-    __result = Rcpp::wrap(sqrt_many_omp(v));
-    return __result;
-END_RCPP
-}

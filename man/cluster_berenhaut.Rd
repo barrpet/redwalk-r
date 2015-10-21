@@ -49,7 +49,7 @@ cutree(cb, k = 2)
 cutree(cb, k = 3)
 
 ## using precomputed shortest paths
-sp <- all_shortest_paths_uwud_fast(dolphins)
+sp <- all_pairs_shortest_paths(dolphins)
 cbd <- cluster_berenhaut(dolphins, short_paths = sp)
 plot(cbd)
 cutree(cbd, k = 2)
