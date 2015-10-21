@@ -3,10 +3,11 @@
 #include <queue>
 #include "AdjacencyList.h"
 
-Rcpp::NumericMatrix all_pairs_shortest_paths_c(const AdjacencyList& adj)
+Eigen::MatrixXd all_pairs_shortest_paths_c(const AdjacencyList& adj)
 {
   const auto nv = adj.vcount();
-  Rcpp::NumericMatrix sp(nv, nv);
+  Eigen::MatrixXd sp(nv, nv);
+  sp.fill(0);
 
   std::vector<gclust::vertex_id_t> already_counted(nv, 0);
   std::queue<gclust::vertex_id_t> q;
@@ -28,16 +29,16 @@ Rcpp::NumericMatrix all_pairs_shortest_paths_c(const AdjacencyList& adj)
       }
     }
   }
-    return sp;
+  return sp;
 }
 
-Rcpp::NumericMatrix all_pairs_shortest_paths_c(gclust::index_t nv,
+Eigen::MatrixXd all_pairs_shortest_paths_c(gclust::index_t nv,
   const Rcpp::IntegerMatrix& el)
 {
   return all_pairs_shortest_paths_c(AdjacencyList(nv, el));
 }
 
-Rcpp::NumericMatrix subsets_shortest_paths_c(const AdjacencyList& adj,
+Eigen::MatrixXd subsets_shortest_paths_c(const AdjacencyList& adj,
   const Rcpp::IntegerVector& s)
 {
   const auto nv = adj.vcount();
@@ -56,7 +57,8 @@ Rcpp::NumericMatrix subsets_shortest_paths_c(const AdjacencyList& adj,
       throw Rcpp::exception("Duplicate vertices in s");
     indexv[v] = ++j;
   }
-  Rcpp::NumericMatrix sp(ns, ns);
+  Eigen::MatrixXd sp(ns, ns);
+  sp.fill(0);
   gclust::index_t i = 0;
   for(auto v : s)
   {
@@ -93,7 +95,7 @@ Rcpp::NumericMatrix subsets_shortest_paths_c(const AdjacencyList& adj,
   return sp;
 }
 
-Rcpp::NumericMatrix subsets_shortest_paths_c(gclust::index_t nv,
+Eigen::MatrixXd subsets_shortest_paths_c(gclust::index_t nv,
   const Rcpp::IntegerMatrix& el, const Rcpp::IntegerVector& s)
 {
   return subsets_shortest_paths_c(AdjacencyList(nv, el), s);

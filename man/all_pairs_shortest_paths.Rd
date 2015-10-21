@@ -2,12 +2,18 @@
 % Please edit documentation in R/Paths.R
 \name{all_pairs_shortest_paths}
 \alias{all_pairs_shortest_paths}
+\alias{subsets_shortest_paths}
 \title{All Pairs Shortest Paths (Unweighted & Undirected)}
 \usage{
 all_pairs_shortest_paths(graph)
+
+subsets_shortest_paths(graph, nodes = V(graph))
 }
 \arguments{
 \item{graph}{an igraph object.}
+
+\item{nodes}{a subset of the nodes of the graph to find the distances between.
+defaults to all nodes (all pairs shortest path lengths).}
 }
 \value{
 returns a symmetric "matrix" object where the \eqn{ij}th entry is the
@@ -19,6 +25,10 @@ Computes all pairs shortest paths for an unweighted, undirected graph. For
 graphs with these properties, this function is much faster than the function
 \code{\link{distances}} in the \pkg{\link{igraph}} package.
 }
+\section{Functions}{
+\itemize{
+\item \code{subsets_shortest_paths}: 
+}}
 \examples{
 sp <- all_pairs_shortest_paths(dolphins);
 sp[1:10,1:10];

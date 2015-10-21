@@ -12,6 +12,8 @@
 #' modularity that is competitive with the top community detection algorithms).
 #'
 #' @param graph an igraph object.
+#' @param nodes a subset of the nodes in the graph to cluster, defaults to all
+#' nodes (full community detection)
 #' @param short_paths either a \eqn{|V|x|V|} symmetric matrix containing the shortest
 #' path distances between the vertices in \code{graph} or a \code{\link{dist}}
 #' object from the \pkg{\link{stats}} package. If \code{NULL} (default), the
@@ -83,8 +85,3 @@ cluster_berenhaut <- function(graph, short_paths = NULL)
   # return the hclust object
   return(hclust_avg(D));
 }
-
-# Alias for cluster_berenhaut
-#' @export berenhaut.community
-#' @describeIn cluster_berenhaut
-berenhaut.community <- cluster_berenhaut
