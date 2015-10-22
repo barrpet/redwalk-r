@@ -1,10 +1,9 @@
 # gclust
 
-An R package for community detection on networks. Makes use of the igraph R
-package which can be found at
-https://cran.r-project.org/web/packages/igraph/index.html. Currently only works
-on undirected, connected, simple networks. If the graph edges contain weights
-they will be ignored.
+An R package for community detection on (connected, undirected, simple)
+networks. Makes use of the
+[igraph](https://cran.r-project.org/web/packages/igraph/index.html) R package.
+If the network edges contain weights they will be ignored.
 
 ## Installation
 
@@ -20,22 +19,31 @@ devtools::install_github("barrpet/gclust")
 ## Usage
 
 Following the igraph package convention for community detection functions, a
-heirarcal clustering can be obtained with:
+heirarchal clustering (returning a `hclust` object) can be obtained with:
 ```R
-cluster_berenhaut(graph, nodes = V(graph), short_paths = NULL)
+cluster_berenhaut(graph, short_paths = NULL)
+cluster_berenhaut_subsets(graph, nodes = V(graph), short_paths = NULL)
 ```
-If shortest path lengths are not provided, the will be calculated every time the
-function is called. A function for shortest paths is provided in the package
-which is more efficient than the igraph function for unweighted, undirected
-graphs.
+`graph` can be either an igraph object or a |E|x2 matrix representing the
+undirected edges of a graph. It is reccomended that the shortest path lengths be
+passed to the functions or they will be computed every time. A function for
+shortest path lengths is provided by the package which is more efficient than
+the igraph function for unweighted, undirected graphs:
+```R
+all_pairs_shortest_paths(graph)
+subsets_shortest_paths(graph, nodes = V(graph))
+```
 
 ## Authors
 
-Peter Barr - <barrps12@wfu.edu>
+Peter S. Barr* - <barrps12@wfu.edu>
 
 Dr. Kenneth Berenhaut - <berenhks@wfu.edu>
+
+Alyssa M. Kogel - <kogeam11@wfu.edu>
+
+_* package author and maintainer_
 
 ## License
 
 MIT
-
