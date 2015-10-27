@@ -37,7 +37,3 @@ shortest_path_lengths_subsets_c <- function(nv, el, s) {
     .Call('gclust_shortest_path_lengths_subsets_c', PACKAGE = 'gclust', nv, el, s)
 }
 
-testFunc <- function(n) {
-    .Call('gclust_testFunc', PACKAGE = 'gclust', n)
-}
-

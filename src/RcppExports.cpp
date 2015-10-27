@@ -106,14 +106,3 @@ BEGIN_RCPP
     return __result;
 END_RCPP
 }
-// testFunc
-gclust::MatrixUS testFunc(int n);
-RcppExport SEXP gclust_testFunc(SEXP nSEXP) {
-BEGIN_RCPP
-    Rcpp::RObject __result;
-    Rcpp::RNGScope __rngScope;
-    Rcpp::traits::input_parameter< int >::type n(nSEXP);
-    __result = Rcpp::wrap(testFunc(n));
-    return __result;
-END_RCPP
-}
