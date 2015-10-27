@@ -5,17 +5,17 @@
 
 //TODO: aligned
 
-template <typename T, typename size_type = gclust::index_t>
+template <typename T, typename size_type>
 T* gclust_alloc(size_type n)
 {
-  T* ret = nullptr;
+  T* ret = 0;
   try
   {
     ret = new T[n];
   }
   catch(std::exception& e)
   {
-    Rcpp::exception(e.what());
+    Rcpp::stop(e.what());
   }
   return ret;
 }

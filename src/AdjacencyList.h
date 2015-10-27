@@ -94,8 +94,29 @@ private:
   AdjacencyList() : nv_(0), ne_(0), adj_(0), deg_(0) { }
 
 public:
-  AdjacencyList(const AdjacencyList& cpy) = default;
-  AdjacencyList& operator=(const AdjacencyList&) = default;
+  AdjacencyList(const AdjacencyList& cpy)
+  {
+    nv_ = cpy.nv_;
+    ne_ = cpy.ne_;
+    deg_ = gclust_alloc<index_t, index_t>(nv_);
+    std::copy(&cpy.deg_[0], &cpy.deg_[nv_], &deg_[0]);
+    adj_ = gclust_alloc<NeighborhoodList, index_t>(nv_);
+    std::copy(&cpy.adj_[0], &cpy.adj_[nv_], &adj_[0]);
+  }
+
+  AdjacencyList& operator=(const AdjacencyList& cpy)
+  {
+    for(iterator itr = this->begin(); itr != this->end(); itr++)
+      itr->destroy();
+    if(deg_) { delete [] deg_; }
+    if(adj_) { delete [] adj_; }
+    nv_ = cpy.nv_;
+    ne_ = cpy.ne_;
+    deg_ = gclust_alloc<index_t, index_t>(nv_);
+    std::copy(&cpy.deg_[0], &cpy.deg_[nv_], &deg_[0]);
+    adj_ = gclust_alloc<NeighborhoodList, index_t>(nv_);
+    std::copy(&cpy.adj_[0], &cpy.adj_[nv_], &adj_[0]);
+  }
 
   AdjacencyList(index_t nv, const Rcpp::IntegerMatrix& el) : nv_(nv)
   {
