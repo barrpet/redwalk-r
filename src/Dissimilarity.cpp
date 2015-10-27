@@ -6,34 +6,33 @@ Rcpp::NumericVector dissimilarity_sp_c(const AdjacencyArray& adj,
   const gclust::MatrixUS& sp)
 {
   //Get number of vertices
-  const long nv = adj.vcount();
+  const gclust::idx_t nv = adj.vcount();
 
   //Allocate D2 - what will become a "dist"
   //number of entries in contiguous symmetric matrix with no diagonal
   Rcpp::NumericVector D((nv * nv - nv) >> 1);
-  D.fill(0);
 
   //Do avg shortest paths of neighbors
   //TODO: optimize
-  long idx = 0;
+  gclust::idx_t idx = 0;
   double mspi, mspj;
-  int degi, degj;
-  for(long i = 0; i < (nv-1); i++)
+  gclust::idx_t degi, degj;
+  for(gclust::idx_t i = 0; i < (nv-1); i++)
   {
     NeighborhoodList nbrsi = adj[i];
     degi = nbrsi.size();
-    for(long j = (i+1); j < nv; j++)
+    for(gclust::idx_t j = (i+1); j < nv; j++)
     {
       mspi = 0; mspj = 0;
       NeighborhoodList nbrsj = adj[j];
       degj = nbrsj.size();
-      for(int n = 0; n < degi; n++)
+      for(gclust::idx_t n = 0; n < degi; n++)
         mspi += sp(nbrsi[n],j);
       mspi /= degi;
-      for(int n = 0; n < degj; n++)
+      for(gclust::idx_t n = 0; n < degj; n++)
         mspj += sp(nbrsj[n],i);
       mspj /= degj;
-      D(idx) = (mspi < mspj) ? mspi : mspj;
+      D[idx] = (mspi < mspj) ? mspi : mspj;
       idx++;
     }
     //let user quit if taking too long
@@ -49,14 +48,15 @@ Rcpp::NumericVector dissimilarity_sp_c(const AdjacencyArray& adj,
   return D;
 }
 
-Rcpp::NumericVector dissimilarity_sp_c(long nv, const Rcpp::IntegerMatrix& el,
-  const gclust::MatrixUS& sp)
+Rcpp::NumericVector dissimilarity_sp_c(const gclust::idx_t nv,
+  const Rcpp::IntegerMatrix& el, const gclust::MatrixUS& sp)
 {
   //Call the main function
   return dissimilarity_sp_c(AdjacencyArray(nv, el), sp);
 }
 
-Rcpp::NumericVector dissimilarity_c(long nv, const Rcpp::IntegerMatrix& el)
+Rcpp::NumericVector dissimilarity_c(const gclust::idx_t nv,
+  const Rcpp::IntegerMatrix& el)
 {
   //Set up adjacency array
   AdjacencyArray adj(nv, el);
@@ -65,15 +65,15 @@ Rcpp::NumericVector dissimilarity_c(long nv, const Rcpp::IntegerMatrix& el)
   return dissimilarity_sp_c(adj, shortest_path_lengths_c(adj));
 }
 
-Rcpp::NumericVector dissimilarity_subsets_sp_c(const AdjacencyArray& adj, const
-  Rcpp::IntegerVector& s, const gclust::MatrixUS& sp)
+Rcpp::NumericVector dissimilarity_subsets_sp_c(const AdjacencyArray& adj,
+  const Rcpp::IntegerVector& s, const gclust::MatrixUS& sp)
 {
-  const int nv = adj.vcount();
-  const int ns = s.size();
+  const gclust::idx_t nv = adj.vcount();
+  const gclust::idx_t ns = s.size();
 
   //to check if a vertex is a target
   std::vector<bool> is_targ(nv, false);
-  for(int i = 0; i < ns; i++)
+  for(gclust::idx_t i = 0; i < ns; i++)
     is_targ[s[i]] = true;
 
   //Set up triplet list for sparse matrix
@@ -82,7 +82,7 @@ Rcpp::NumericVector dissimilarity_subsets_sp_c(const AdjacencyArray& adj, const
   tripletList.reserve(nv + 2 * adj.ecount()); //TODO: reserve exact or close to
 
   //Build the tripletlist
-  for(int i = 0; i < nv; i++)
+  for(gclust::idx_t i = 0; i < nv; i++)
   {
     tripletList.push_back(T(i, i, 1.0));
     if(!is_targ[i])
@@ -111,8 +111,8 @@ Rcpp::NumericVector dissimilarity_subsets_sp_c(const AdjacencyArray& adj, const
 
   //setup b
   Eigen::MatrixXd b(ns, nv);
-  b.fill(0);  //TODO: may not be necessary
-  for(int i = 0; i < ns; i++)
+  b.fill(0);
+  for(gclust::idx_t i = 0; i < ns; i++)
     b.col(s[i]) = sp.col(i).cast<double>();
   b.transposeInPlace();
 
@@ -126,27 +126,27 @@ Rcpp::NumericVector dissimilarity_subsets_sp_c(const AdjacencyArray& adj, const
   //number of entries in contiguous symmetric matrix with no diagonal
   Rcpp::NumericVector D((ns * ns - ns) >> 1);
 
-  int idx = 0;
+  gclust::idx_t idx = 0;
   double mspi, mspj;
-  int degi, degj;
-  for(int i = 0; i < (ns-1); i++)
+  gclust::idx_t degi, degj;
+  for(gclust::idx_t i = 0; i < (ns-1); i++)
   {
-    int ti = s[i];
+    gclust::vid_t ti = s[i];
     degi = adj.degree(ti);
     NeighborhoodList nbrsi = adj[ti];
-    for(int j = i+1; j < ns; j++)
+    for(gclust::idx_t j = i+1; j < ns; j++)
     {
-      int tj = s[j];
+      gclust::vid_t tj = s[j];
       degj = adj.degree(tj);
       NeighborhoodList nbrsj = adj[tj];
       mspi = mspj = 0;
-      for(int n = 0; n < degi; n++)
+      for(gclust::idx_t n = 0; n < degi; n++)
         mspi += x(nbrsi[n],j);
       mspi /= degi;
-      for(int n = 0; n < degj; n++)
+      for(gclust::idx_t n = 0; n < degj; n++)
         mspj += x(nbrsj[n],i);
       mspj /= degj;
-      D(idx) = (mspi < mspj) ? mspi : mspj;
+      D[idx] = (mspi < mspj) ? mspi : mspj;
       idx++;
     }
     Rcpp::checkUserInterrupt();
@@ -161,7 +161,7 @@ Rcpp::NumericVector dissimilarity_subsets_sp_c(const AdjacencyArray& adj, const
   return D;
 }
 
-Rcpp::NumericVector dissimilarity_subsets_sp_c(int nv, const
+Rcpp::NumericVector dissimilarity_subsets_sp_c(const gclust::idx_t nv, const
   Rcpp::IntegerMatrix& el, const Rcpp::IntegerVector& s, const gclust::MatrixUS&
   sp)
 {
@@ -169,7 +169,7 @@ Rcpp::NumericVector dissimilarity_subsets_sp_c(int nv, const
   return dissimilarity_subsets_sp_c(adj, s, sp);
 }
 
-Rcpp::NumericVector dissimilarity_subsets_c(int nv, const
+Rcpp::NumericVector dissimilarity_subsets_c(const gclust::idx_t nv, const
   Rcpp::IntegerMatrix& el, const Rcpp::IntegerVector& s)
 {
   AdjacencyArray adj(nv, el);

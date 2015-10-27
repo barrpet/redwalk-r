@@ -8,11 +8,11 @@
 using namespace Rcpp;
 
 // dissimilarity_sp_c
-Rcpp::NumericVector dissimilarity_sp_c(long nv, const Rcpp::IntegerMatrix& el, const gclust::MatrixUS& sp);
+Rcpp::NumericVector dissimilarity_sp_c(const gclust::idx_t nv, const Rcpp::IntegerMatrix& el, const gclust::MatrixUS& sp);
 RcppExport SEXP gclust_dissimilarity_sp_c(SEXP nvSEXP, SEXP elSEXP, SEXP spSEXP) {
 BEGIN_RCPP
     Rcpp::RObject __result;
-    Rcpp::traits::input_parameter< long >::type nv(nvSEXP);
+    Rcpp::traits::input_parameter< const gclust::idx_t >::type nv(nvSEXP);
     Rcpp::traits::input_parameter< const Rcpp::IntegerMatrix& >::type el(elSEXP);
     Rcpp::traits::input_parameter< const gclust::MatrixUS& >::type sp(spSEXP);
     __result = Rcpp::wrap(dissimilarity_sp_c(nv, el, sp));
@@ -20,22 +20,22 @@ BEGIN_RCPP
 END_RCPP
 }
 // dissimilarity_c
-Rcpp::NumericVector dissimilarity_c(long nv, const Rcpp::IntegerMatrix& el);
+Rcpp::NumericVector dissimilarity_c(const gclust::idx_t nv, const Rcpp::IntegerMatrix& el);
 RcppExport SEXP gclust_dissimilarity_c(SEXP nvSEXP, SEXP elSEXP) {
 BEGIN_RCPP
     Rcpp::RObject __result;
-    Rcpp::traits::input_parameter< long >::type nv(nvSEXP);
+    Rcpp::traits::input_parameter< const gclust::idx_t >::type nv(nvSEXP);
     Rcpp::traits::input_parameter< const Rcpp::IntegerMatrix& >::type el(elSEXP);
     __result = Rcpp::wrap(dissimilarity_c(nv, el));
     return __result;
 END_RCPP
 }
 // dissimilarity_subsets_sp_c
-Rcpp::NumericVector dissimilarity_subsets_sp_c(int nv, const Rcpp::IntegerMatrix& el, const Rcpp::IntegerVector& s, const gclust::MatrixUS& sp);
+Rcpp::NumericVector dissimilarity_subsets_sp_c(const gclust::idx_t nv, const Rcpp::IntegerMatrix& el, const Rcpp::IntegerVector& s, const gclust::MatrixUS& sp);
 RcppExport SEXP gclust_dissimilarity_subsets_sp_c(SEXP nvSEXP, SEXP elSEXP, SEXP sSEXP, SEXP spSEXP) {
 BEGIN_RCPP
     Rcpp::RObject __result;
-    Rcpp::traits::input_parameter< int >::type nv(nvSEXP);
+    Rcpp::traits::input_parameter< const gclust::idx_t >::type nv(nvSEXP);
     Rcpp::traits::input_parameter< const Rcpp::IntegerMatrix& >::type el(elSEXP);
     Rcpp::traits::input_parameter< const Rcpp::IntegerVector& >::type s(sSEXP);
     Rcpp::traits::input_parameter< const gclust::MatrixUS& >::type sp(spSEXP);
@@ -44,11 +44,11 @@ BEGIN_RCPP
 END_RCPP
 }
 // dissimilarity_subsets_c
-Rcpp::NumericVector dissimilarity_subsets_c(int nv, const Rcpp::IntegerMatrix& el, const Rcpp::IntegerVector& s);
+Rcpp::NumericVector dissimilarity_subsets_c(const gclust::idx_t nv, const Rcpp::IntegerMatrix& el, const Rcpp::IntegerVector& s);
 RcppExport SEXP gclust_dissimilarity_subsets_c(SEXP nvSEXP, SEXP elSEXP, SEXP sSEXP) {
 BEGIN_RCPP
     Rcpp::RObject __result;
-    Rcpp::traits::input_parameter< int >::type nv(nvSEXP);
+    Rcpp::traits::input_parameter< const gclust::idx_t >::type nv(nvSEXP);
     Rcpp::traits::input_parameter< const Rcpp::IntegerMatrix& >::type el(elSEXP);
     Rcpp::traits::input_parameter< const Rcpp::IntegerVector& >::type s(sSEXP);
     __result = Rcpp::wrap(dissimilarity_subsets_c(nv, el, s));
