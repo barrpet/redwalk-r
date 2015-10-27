@@ -55,34 +55,6 @@ BEGIN_RCPP
     return __result;
 END_RCPP
 }
-// check_openmp
-void check_openmp();
-RcppExport SEXP gclust_check_openmp() {
-BEGIN_RCPP
-    check_openmp();
-    return R_NilValue;
-END_RCPP
-}
-// dostuff_seq
-double dostuff_seq(const NumericVector& x);
-RcppExport SEXP gclust_dostuff_seq(SEXP xSEXP) {
-BEGIN_RCPP
-    Rcpp::RObject __result;
-    Rcpp::traits::input_parameter< const NumericVector& >::type x(xSEXP);
-    __result = Rcpp::wrap(dostuff_seq(x));
-    return __result;
-END_RCPP
-}
-// dostuff_par
-double dostuff_par(const NumericVector& x);
-RcppExport SEXP gclust_dostuff_par(SEXP xSEXP) {
-BEGIN_RCPP
-    Rcpp::RObject __result;
-    Rcpp::traits::input_parameter< const NumericVector& >::type x(xSEXP);
-    __result = Rcpp::wrap(dostuff_par(x));
-    return __result;
-END_RCPP
-}
 // shortest_path_lengths_c
 gclust::MatrixUS shortest_path_lengths_c(gclust::index_t nv, const Rcpp::IntegerMatrix& el);
 RcppExport SEXP gclust_shortest_path_lengths_c(SEXP nvSEXP, SEXP elSEXP) {
