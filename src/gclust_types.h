@@ -5,6 +5,7 @@
 #include <limits>
 #include <RcppEigen.h>
 #include <Rcpp.h>
+#include "OpenMP.h"
 
 #if __cplusplus >= 201103L
 #define _GC_CXX11 1
