@@ -29,19 +29,15 @@ dostuff_par <- function(x) {
     .Call('gclust_dostuff_par', PACKAGE = 'gclust', x)
 }
 
-all_pairs_shortest_paths_c <- function(nv, el) {
-    .Call('gclust_all_pairs_shortest_paths_c', PACKAGE = 'gclust', nv, el)
+shortest_path_lengths_c <- function(nv, el) {
+    .Call('gclust_shortest_path_lengths_c', PACKAGE = 'gclust', nv, el)
 }
 
-subsets_shortest_paths_c <- function(nv, el, s) {
-    .Call('gclust_subsets_shortest_paths_c', PACKAGE = 'gclust', nv, el, s)
+shortest_path_lengths_subsets_c <- function(nv, el, s) {
+    .Call('gclust_shortest_path_lengths_subsets_c', PACKAGE = 'gclust', nv, el, s)
 }
 
-testadjarr <- function(nv, el) {
-    invisible(.Call('gclust_testadjarr', PACKAGE = 'gclust', nv, el))
-}
-
-testadjlst <- function(nv, el) {
-    invisible(.Call('gclust_testadjlst', PACKAGE = 'gclust', nv, el))
+testFunc <- function(n) {
+    .Call('gclust_testFunc', PACKAGE = 'gclust', n)
 }
 

@@ -35,52 +35,58 @@
 #' cutree(cb, k = 3)
 #'
 #' ## using precomputed shortest paths
-#' sp <- all_pairs_shortest_paths(dolphins)
+#' sp <- shortest_path_lengths(dolphins)
 #' cbd <- cluster_berenhaut(dolphins, short_paths = sp)
 #' plot(cbd)
 #' cutree(cbd, k = 2)
 #' cutree(cbd, k = 4)
 #'
-cluster_berenhaut <- function(graph, short_paths = NULL)
+cluster_berenhaut <- function(graph, nodes = V(graph), short_paths = NULL)
 {
-  # Check that the graph is valid
   check_graph(graph);
-
-  # Get number of vertices and edges, and create edgelist
   nv <- vcount(graph);
-  edglst <- as_edgelist(graph, names = FALSE) - 1; # sub 1 for C++ functions
+  edglst <- as_edgelist(graph, names = FALSE) - 1;
   storage.mode(edglst) <- "integer";
+  ns0 <- length(nodes);
+  nodes <- sort(unique(as.integer(nodes)));
+  ns <- length(nodes);
+  stopifnot(ns0 == ns, ns >= 2, all(nodes >= 1), all(nodes <= nv));
+  all_nodes <- (ns == nv);
 
   # Check if short_paths is provided, calculate if not
   # TODO: really bad that shortest paths is a matrix rather than dist
   if(is.null(short_paths)) {
-    D <- dissimilarity_c(nv, edglst);
+    if(all_nodes) {
+      D <- dissimilarity_c(nv, edglst);
+    } else {
+      D <- dissimilarity_subsets_c(nv, edglst, nodes-1);
+    }
   } else {
     # if given shortest paths as dist, convert to matrix
-    if(class(short_paths) == "dist") {
+    if("dist" %in% class(short_paths)) {
       short_paths <- as.matrix(short_paths);
     }
     # need short_paths to be a matrix
-    if(class(short_paths) != "matrix") {
+    if(!("matrix" %in% class(short_paths))) {
       stop("short_paths must be of class matrix or dist");
     }
-
-    # check correct dimensions
+    # check square
     dim_sp <- dim(short_paths);
-    if(!all.equal(dim_sp, c(nv, nv))) {
-      stop("short_paths has incorrect dimensions");
+    if(dim_sp[1] != dim_sp[2])
+      stop("short_paths has incorrect dimensions"); #need square
+
+    if(all_nodes) {
+      if(dim_sp[1] != nv)
+        stop("short_paths has incorrect dimensions");
+      D <- dissimilarity_sp_c(nv, edglst, short_paths);
+    } else {
+      if(dim_sp[1] != nv & dim_sp[1] != ns)
+        stop("short_paths has incorrect dimensions");
+      if(dim_sp[1] == nv)
+        short_paths <- short_paths[nodes,nodes];
+      D <- dissimilarity_subsets_sp_c(nv, edglst, nodes-1, short_paths);
     }
-    # TODO: check symmetric? won't be fast
-
-    # Finally get D
-    D <- dissimilarity_sp_c(nv, edglst, short_paths);
   }
-
-  # Make D a dist object
-  attr(D, "Diag") <- FALSE;
-  attr(D, "Upper") <- FALSE;
-  attr(D, "Size") <- nv;
-  attr(D, "class") <- "dist";
 
   # return the hclust object
   return(hclust_avg(D));

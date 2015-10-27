@@ -3,11 +3,11 @@
 #include <queue>
 #include "AdjacencyArray.h"
 
-Eigen::MatrixXd all_pairs_shortest_paths_c(const AdjacencyArray& adj)
+gclust::MatrixUS shortest_path_lengths_c(const AdjacencyArray& adj)
 {
   const int nv = adj.vcount();
-  Eigen::MatrixXd sp(nv, nv);
-  sp.fill(0);
+  gclust::MatrixUS sp(nv, nv);
+  sp.setConstant(gclust::INF_US);
 
   std::vector<gclust::vertex_id_t> already_counted(nv, 0);
   std::queue<gclust::vertex_id_t> q;
@@ -35,19 +35,19 @@ Eigen::MatrixXd all_pairs_shortest_paths_c(const AdjacencyArray& adj)
   return sp;
 }
 
-Eigen::MatrixXd all_pairs_shortest_paths_c(gclust::index_t nv,
+gclust::MatrixUS shortest_path_lengths_c(gclust::index_t nv,
   const Rcpp::IntegerMatrix& el)
 {
-  return all_pairs_shortest_paths_c(AdjacencyArray(nv, el));
+  return shortest_path_lengths_c(AdjacencyArray(nv, el));
 }
 
-Eigen::MatrixXd subsets_shortest_paths_c(const AdjacencyArray& adj,
+gclust::MatrixUS shortest_path_lengths_subsets_c(const AdjacencyArray& adj,
   const Rcpp::IntegerVector& s)
 {
   const int nv = adj.vcount();
   const int ns = s.size();
   if(ns == nv)
-    return all_pairs_shortest_paths_c(adj);
+    return shortest_path_lengths_c(adj);
 
   std::vector<gclust::vertex_id_t> already_counted(nv, 0);
   std::vector<gclust::vertex_id_t> indexv(nv, 0);
@@ -60,8 +60,8 @@ Eigen::MatrixXd subsets_shortest_paths_c(const AdjacencyArray& adj,
       throw Rcpp::exception("Duplicate vertices in s");
     indexv[v] = ++j;
   }
-  Eigen::MatrixXd sp(ns, ns);
-  sp.fill(gclust::inf);
+  gclust::MatrixUS sp(ns, ns);
+  sp.setConstant(gclust::INF_US);
   for(int vi = 0; vi < ns; vi++)
   {
     Rcpp::checkUserInterrupt();
@@ -101,8 +101,8 @@ Eigen::MatrixXd subsets_shortest_paths_c(const AdjacencyArray& adj,
   return sp;
 }
 
-Eigen::MatrixXd subsets_shortest_paths_c(gclust::index_t nv,
+gclust::MatrixUS shortest_path_lengths_subsets_c(gclust::index_t nv,
   const Rcpp::IntegerMatrix& el, const Rcpp::IntegerVector& s)
 {
-  return subsets_shortest_paths_c(AdjacencyArray(nv, el), s);
+  return shortest_path_lengths_subsets_c(AdjacencyArray(nv, el), s);
 }

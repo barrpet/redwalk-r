@@ -43,7 +43,7 @@ heirarchal clustering. For the main algorithm, see
   paths for a network will provide much faster results, as a breadth first
   search for every vertex has time complexity \eqn{O(n^2 + nm)}. Although
   igraph provides functions for calculating these values, this package
-  includes an equivalent function, \code{\link{all_pairs_shortest_paths}}
+  includes an equivalent function, \code{\link{shortest_path_lengths}}
   which is optimized for the APSP problem on undirected, unweighted graphs.
 }
 
@@ -89,7 +89,7 @@ Need some references here, gotta be all official and what not. Probably
 }
 \seealso{
 \code{\link{cluster_berenhaut}};
-  \code{\link{all_pairs_shortest_paths}};
+  \code{\link{shortest_path_lengths}};
 }
 \keyword{cluster}
 \keyword{graphs}

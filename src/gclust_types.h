@@ -1,8 +1,28 @@
 #ifndef GCLUST_BASE_H
 #define GCLUST_BASE_H
 
+#include <cstddef>
 #include <limits>
 #include <RcppEigen.h>
+#include <Rcpp.h>
+
+#if __cplusplus >= 201103L
+#define _GC_CXX11 1
+#endif
+
+#ifdef _GC_CXX11
+#  define GC_NULLPTR nullptr
+#  define GC_CONSTEXPR constexpr
+#  define GC_CONSTEXPR_OR_CONST constexpr
+#else
+#  ifdef NULL
+#    define GC_NULLPTR NULL
+#  else
+#    define GC_NULLPTR 0
+#  endif
+#  define GC_CONSTEXPR
+#  define GC_CONSTEXPR_OR_CONST const
+#endif
 
 namespace gclust
 {
@@ -10,18 +30,24 @@ namespace gclust
   typedef R_xlen_t index_t;
   typedef int vertex_id_t;
   typedef unsigned short ushort_t;
+  typedef unsigned char uchar_t;
+
+  typedef float_t flt_t;
+  typedef index_t idx_t;
+  typedef vertex_id_t vid_t;
 
   typedef Eigen::Matrix<float_t, Eigen::Dynamic, Eigen::Dynamic> MatrixF;
   typedef Eigen::Matrix<ushort_t, Eigen::Dynamic, Eigen::Dynamic> MatrixUS;
 
-  using std::numeric_limits;
-  static const vertex_id_t none = numeric_limits<vertex_id_t>::max();
-  static const float_t inf = numeric_limits<float_t>::infinity();
-  static const float_t nan = numeric_limits<float_t>::quiet_NaN();
-  static const float_t zero = float_t(0);
-  static const float_t one = float_t(1);
-  static const float_t neg_one = float_t(-1);
-  static const float_t half = float_t(0.5);
+  static GC_CONSTEXPR_OR_CONST vid_t NONE = std::numeric_limits<vid_t>::max();
+  static GC_CONSTEXPR_OR_CONST ushort_t INF_US = std::numeric_limits<ushort_t>::max();
+
+  static GC_CONSTEXPR_OR_CONST flt_t INF_F = std::numeric_limits<float_t>::infinity();
+  static GC_CONSTEXPR_OR_CONST flt_t NAN_F = std::numeric_limits<float_t>::quiet_NaN();
+  static GC_CONSTEXPR_OR_CONST flt_t ZERO_F = float_t(0);
+  static GC_CONSTEXPR_OR_CONST flt_t ONE_F = float_t(1);
+  static GC_CONSTEXPR_OR_CONST flt_t NEG_ONE_F = float_t(-1);
+  static GC_CONSTEXPR_OR_CONST flt_t HALF_F = float_t(0.5);
 };
 
 #endif //GCLUST_BASE_H
