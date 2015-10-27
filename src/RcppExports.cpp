@@ -8,13 +8,13 @@
 using namespace Rcpp;
 
 // dissimilarity_sp_c
-Rcpp::NumericVector dissimilarity_sp_c(long nv, const Rcpp::IntegerMatrix& el, const Eigen::MatrixXd& sp);
+Rcpp::NumericVector dissimilarity_sp_c(long nv, const Rcpp::IntegerMatrix& el, const gclust::MatrixUS& sp);
 RcppExport SEXP gclust_dissimilarity_sp_c(SEXP nvSEXP, SEXP elSEXP, SEXP spSEXP) {
 BEGIN_RCPP
     Rcpp::RObject __result;
     Rcpp::traits::input_parameter< long >::type nv(nvSEXP);
     Rcpp::traits::input_parameter< const Rcpp::IntegerMatrix& >::type el(elSEXP);
-    Rcpp::traits::input_parameter< const Eigen::MatrixXd& >::type sp(spSEXP);
+    Rcpp::traits::input_parameter< const gclust::MatrixUS& >::type sp(spSEXP);
     __result = Rcpp::wrap(dissimilarity_sp_c(nv, el, sp));
     return __result;
 END_RCPP
@@ -31,14 +31,14 @@ BEGIN_RCPP
 END_RCPP
 }
 // dissimilarity_subsets_sp_c
-Rcpp::NumericVector dissimilarity_subsets_sp_c(int nv, const Rcpp::IntegerMatrix& el, const Rcpp::IntegerVector& s, const Eigen::MatrixXd& sp);
+Rcpp::NumericVector dissimilarity_subsets_sp_c(int nv, const Rcpp::IntegerMatrix& el, const Rcpp::IntegerVector& s, const gclust::MatrixUS& sp);
 RcppExport SEXP gclust_dissimilarity_subsets_sp_c(SEXP nvSEXP, SEXP elSEXP, SEXP sSEXP, SEXP spSEXP) {
 BEGIN_RCPP
     Rcpp::RObject __result;
     Rcpp::traits::input_parameter< int >::type nv(nvSEXP);
     Rcpp::traits::input_parameter< const Rcpp::IntegerMatrix& >::type el(elSEXP);
     Rcpp::traits::input_parameter< const Rcpp::IntegerVector& >::type s(sSEXP);
-    Rcpp::traits::input_parameter< const Eigen::MatrixXd& >::type sp(spSEXP);
+    Rcpp::traits::input_parameter< const gclust::MatrixUS& >::type sp(spSEXP);
     __result = Rcpp::wrap(dissimilarity_subsets_sp_c(nv, el, s, sp));
     return __result;
 END_RCPP
@@ -83,47 +83,37 @@ BEGIN_RCPP
     return __result;
 END_RCPP
 }
-// all_pairs_shortest_paths_c
-Eigen::MatrixXd all_pairs_shortest_paths_c(gclust::index_t nv, const Rcpp::IntegerMatrix& el);
-RcppExport SEXP gclust_all_pairs_shortest_paths_c(SEXP nvSEXP, SEXP elSEXP) {
+// shortest_path_lengths_c
+gclust::MatrixUS shortest_path_lengths_c(gclust::index_t nv, const Rcpp::IntegerMatrix& el);
+RcppExport SEXP gclust_shortest_path_lengths_c(SEXP nvSEXP, SEXP elSEXP) {
 BEGIN_RCPP
     Rcpp::RObject __result;
     Rcpp::traits::input_parameter< gclust::index_t >::type nv(nvSEXP);
     Rcpp::traits::input_parameter< const Rcpp::IntegerMatrix& >::type el(elSEXP);
-    __result = Rcpp::wrap(all_pairs_shortest_paths_c(nv, el));
+    __result = Rcpp::wrap(shortest_path_lengths_c(nv, el));
     return __result;
 END_RCPP
 }
-// subsets_shortest_paths_c
-Eigen::MatrixXd subsets_shortest_paths_c(gclust::index_t nv, const Rcpp::IntegerMatrix& el, const Rcpp::IntegerVector& s);
-RcppExport SEXP gclust_subsets_shortest_paths_c(SEXP nvSEXP, SEXP elSEXP, SEXP sSEXP) {
+// shortest_path_lengths_subsets_c
+gclust::MatrixUS shortest_path_lengths_subsets_c(gclust::index_t nv, const Rcpp::IntegerMatrix& el, const Rcpp::IntegerVector& s);
+RcppExport SEXP gclust_shortest_path_lengths_subsets_c(SEXP nvSEXP, SEXP elSEXP, SEXP sSEXP) {
 BEGIN_RCPP
     Rcpp::RObject __result;
     Rcpp::traits::input_parameter< gclust::index_t >::type nv(nvSEXP);
     Rcpp::traits::input_parameter< const Rcpp::IntegerMatrix& >::type el(elSEXP);
     Rcpp::traits::input_parameter< const Rcpp::IntegerVector& >::type s(sSEXP);
-    __result = Rcpp::wrap(subsets_shortest_paths_c(nv, el, s));
+    __result = Rcpp::wrap(shortest_path_lengths_subsets_c(nv, el, s));
     return __result;
 END_RCPP
 }
-// testadjarr
-void testadjarr(int nv, const IntegerMatrix& el);
-RcppExport SEXP gclust_testadjarr(SEXP nvSEXP, SEXP elSEXP) {
+// testFunc
+gclust::MatrixUS testFunc(int n);
+RcppExport SEXP gclust_testFunc(SEXP nSEXP) {
 BEGIN_RCPP
+    Rcpp::RObject __result;
     Rcpp::RNGScope __rngScope;
-    Rcpp::traits::input_parameter< int >::type nv(nvSEXP);
-    Rcpp::traits::input_parameter< const IntegerMatrix& >::type el(elSEXP);
-    testadjarr(nv, el);
-    return R_NilValue;
-END_RCPP
-}
-// testadjlst
-void testadjlst(int nv, const IntegerMatrix& el);
-RcppExport SEXP gclust_testadjlst(SEXP nvSEXP, SEXP elSEXP) {
-BEGIN_RCPP
-    Rcpp::traits::input_parameter< int >::type nv(nvSEXP);
-    Rcpp::traits::input_parameter< const IntegerMatrix& >::type el(elSEXP);
-    testadjlst(nv, el);
-    return R_NilValue;
+    Rcpp::traits::input_parameter< int >::type n(nSEXP);
+    __result = Rcpp::wrap(testFunc(n));
+    return __result;
 END_RCPP
 }

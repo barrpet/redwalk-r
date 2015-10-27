@@ -18,7 +18,7 @@
 #'
 check_graph <- function(graph)
 {
-  if(class(graph) != "igraph")
+  if(!is.igraph(graph))
     stop("graph must be an igraph object");
 
   if(is.directed(graph))
@@ -32,6 +32,3 @@ check_graph <- function(graph)
 
   invisible(TRUE);
 }
-
-# Alias for check_graph
-is_undirected_connected_simple <- check_graph

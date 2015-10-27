@@ -1,7 +1,9 @@
 #' @useDynLib gclust
 #' @importFrom Rcpp evalCpp
 #' @import RcppEigen
-#' @importFrom igraph as_edgelist vcount is.igraph is.directed is.connected is.weighted is.simple V distances graph.laplacian degree neighbors
+#' @importFrom igraph as_edgelist vcount V distances degree neighbors
+#' @importFrom igraph is.igraph is.directed is.connected is.weighted is.simple
+#' @importFrom igraph graph.laplacian
 NULL
 
 #' The gclust package
@@ -45,7 +47,7 @@ NULL
 #'   paths for a network will provide much faster results, as a breadth first
 #'   search for every vertex has time complexity \eqn{O(n^2 + nm)}. Although
 #'   igraph provides functions for calculating these values, this package
-#'   includes an equivalent function, \code{\link{all_pairs_shortest_paths}}
+#'   includes an equivalent function, \code{\link{shortest_path_lengths}}
 #'   which is optimized for the APSP problem on undirected, unweighted graphs.
 #'
 #' @section Heirarchal Clustering:
@@ -83,6 +85,5 @@ NULL
 #'
 #' @seealso
 #'   \code{\link{cluster_berenhaut}};
-#'   \code{\link{all_pairs_shortest_paths}};
-
+#'   \code{\link{shortest_path_lengths}};
 NULL

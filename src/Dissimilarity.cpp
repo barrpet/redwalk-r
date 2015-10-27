@@ -3,7 +3,7 @@
 #include "AdjacencyArray.h"
 
 Rcpp::NumericVector dissimilarity_sp_c(const AdjacencyArray& adj,
-  const Eigen::MatrixXd& sp)
+  const gclust::MatrixUS& sp)
 {
   //Get number of vertices
   const long nv = adj.vcount();
@@ -50,7 +50,7 @@ Rcpp::NumericVector dissimilarity_sp_c(const AdjacencyArray& adj,
 }
 
 Rcpp::NumericVector dissimilarity_sp_c(long nv, const Rcpp::IntegerMatrix& el,
-  const Eigen::MatrixXd& sp)
+  const gclust::MatrixUS& sp)
 {
   //Call the main function
   return dissimilarity_sp_c(AdjacencyArray(nv, el), sp);
@@ -62,11 +62,11 @@ Rcpp::NumericVector dissimilarity_c(long nv, const Rcpp::IntegerMatrix& el)
   AdjacencyArray adj(nv, el);
 
   //Call main function
-  return dissimilarity_sp_c(adj, all_pairs_shortest_paths_c(adj));
+  return dissimilarity_sp_c(adj, shortest_path_lengths_c(adj));
 }
 
 Rcpp::NumericVector dissimilarity_subsets_sp_c(const AdjacencyArray& adj, const
-  Rcpp::IntegerVector& s, const Eigen::MatrixXd& sp)
+  Rcpp::IntegerVector& s, const gclust::MatrixUS& sp)
 {
   const int nv = adj.vcount();
   const int ns = s.size();
@@ -113,7 +113,7 @@ Rcpp::NumericVector dissimilarity_subsets_sp_c(const AdjacencyArray& adj, const
   Eigen::MatrixXd b(ns, nv);
   b.fill(0);  //TODO: may not be necessary
   for(int i = 0; i < ns; i++)
-    b.col(s[i]) = sp.col(i);
+    b.col(s[i]) = sp.col(i).cast<double>();
   b.transposeInPlace();
 
   //Solve
@@ -162,7 +162,7 @@ Rcpp::NumericVector dissimilarity_subsets_sp_c(const AdjacencyArray& adj, const
 }
 
 Rcpp::NumericVector dissimilarity_subsets_sp_c(int nv, const
-  Rcpp::IntegerMatrix& el, const Rcpp::IntegerVector& s, const Eigen::MatrixXd&
+  Rcpp::IntegerMatrix& el, const Rcpp::IntegerVector& s, const gclust::MatrixUS&
   sp)
 {
   AdjacencyArray adj(nv, el);
@@ -173,5 +173,5 @@ Rcpp::NumericVector dissimilarity_subsets_c(int nv, const
   Rcpp::IntegerMatrix& el, const Rcpp::IntegerVector& s)
 {
   AdjacencyArray adj(nv, el);
-  return dissimilarity_subsets_sp_c(adj, s, subsets_shortest_paths_c(adj, s));
+  return dissimilarity_subsets_sp_c(adj, s, shortest_path_lengths_subsets_c(adj, s));
 }
