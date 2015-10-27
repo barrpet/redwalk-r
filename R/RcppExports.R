@@ -17,18 +17,6 @@ dissimilarity_subsets_c <- function(nv, el, s) {
     .Call('gclust_dissimilarity_subsets_c', PACKAGE = 'gclust', nv, el, s)
 }
 
-check_openmp <- function() {
-    invisible(.Call('gclust_check_openmp', PACKAGE = 'gclust'))
-}
-
-dostuff_seq <- function(x) {
-    .Call('gclust_dostuff_seq', PACKAGE = 'gclust', x)
-}
-
-dostuff_par <- function(x) {
-    .Call('gclust_dostuff_par', PACKAGE = 'gclust', x)
-}
-
 shortest_path_lengths_c <- function(nv, el) {
     .Call('gclust_shortest_path_lengths_c', PACKAGE = 'gclust', nv, el)
 }
