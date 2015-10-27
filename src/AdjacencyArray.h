@@ -11,9 +11,8 @@ private:
   iterator beg_;
   iterator end_;
 
-  NeighborhoodList() : beg_(0), end_(0) { }
-
 public:
+  NeighborhoodList() : beg_(0), end_(0) { }
   NeighborhoodList(iterator beg, iterator end) : beg_(beg), end_(end) { }
   ~NeighborhoodList() { beg_ = 0; end_ = 0; }
 
@@ -21,6 +20,11 @@ public:
   const_iterator end()    const { return end_; }
   const_iterator cbegin() const { return beg_; }
   const_iterator cend()   const { return end_; }
+
+  inline int size()   const { return end_ - beg_; }
+  inline int degree() const { return end_ - beg_; }
+
+  inline int operator[](int i) { return *(beg_ + i); }
 };
 
 class AdjacencyArray

@@ -3,15 +3,15 @@
 
 #include <RcppEigen.h>
 #include "gclust_types.h"
-class AdjacencyList;
+class AdjacencyArray;
 
-Eigen::MatrixXd all_pairs_shortest_paths_c(const AdjacencyList& adj);
+Eigen::MatrixXd all_pairs_shortest_paths_c(const AdjacencyArray& adj);
 
 // [[Rcpp::export(rng = false)]]
 Eigen::MatrixXd all_pairs_shortest_paths_c(gclust::index_t nv,
   const Rcpp::IntegerMatrix& el);
 
-Eigen::MatrixXd subsets_shortest_paths_c(const AdjacencyList& adj,
+Eigen::MatrixXd subsets_shortest_paths_c(const AdjacencyArray& adj,
   const Rcpp::IntegerVector& s);
 
 // [[Rcpp::export(rng = false)]]

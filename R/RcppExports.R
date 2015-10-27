@@ -9,6 +9,14 @@ dissimilarity_c <- function(nv, el) {
     .Call('gclust_dissimilarity_c', PACKAGE = 'gclust', nv, el)
 }
 
+dissimilarity_subsets_sp_c <- function(nv, el, s, sp) {
+    .Call('gclust_dissimilarity_subsets_sp_c', PACKAGE = 'gclust', nv, el, s, sp)
+}
+
+dissimilarity_subsets_c <- function(nv, el, s) {
+    .Call('gclust_dissimilarity_subsets_c', PACKAGE = 'gclust', nv, el, s)
+}
+
 check_openmp <- function() {
     invisible(.Call('gclust_check_openmp', PACKAGE = 'gclust'))
 }
@@ -29,7 +37,11 @@ subsets_shortest_paths_c <- function(nv, el, s) {
     .Call('gclust_subsets_shortest_paths_c', PACKAGE = 'gclust', nv, el, s)
 }
 
-dissimilarity_subsets_sp_c <- function(nv, el, s, sp) {
-    .Call('gclust_dissimilarity_subsets_sp_c', PACKAGE = 'gclust', nv, el, s, sp)
+testadjarr <- function(nv, el) {
+    invisible(.Call('gclust_testadjarr', PACKAGE = 'gclust', nv, el))
+}
+
+testadjlst <- function(nv, el) {
+    invisible(.Call('gclust_testadjlst', PACKAGE = 'gclust', nv, el))
 }
 
