@@ -1,7 +1,7 @@
 ## With Rcpp 0.11.0 and later, we no longer need to set PKG_LIBS as there is
 ## no user-facing library. The include path to headers is already set by R.
 PKG_CFLAGS = $(SHLIB_OPENMP_CFLAGS)
-PKG_CXXFLAGS = $(SHLIB_OPENMP_CXXFLAGS) -Wno-deprecated-declarations
+PKG_CXXFLAGS = $(SHLIB_OPENMP_CXXFLAGS)
 PKG_FFLAGS = $(SHLIB_OPENMP_FFLAGS)
 PKG_FCFLAGS = $(SHLIB_OPENMP_FCFLAGS)
 PKG_LIBS = $(SHLIB_OPENMP_CFLAGS) $(BLAS_LIBS) $(LAPACK_LIBS) $(FLIBS)
