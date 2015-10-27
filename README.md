@@ -21,8 +21,7 @@ devtools::install_github("barrpet/gclust")
 Following the igraph package convention for community detection functions, a
 heirarchal clustering (returning a `hclust` object) can be obtained with:
 ```R
-cluster_berenhaut(graph, short_paths = NULL)
-cluster_berenhaut_subsets(graph, nodes = V(graph), short_paths = NULL)
+cluster_berenhaut(graph, nodes = V(graph), short_paths = NULL)
 ```
 `graph` can be either an igraph object or a |E|x2 matrix representing the
 undirected edges of a graph. It is reccomended that the shortest path lengths be
@@ -30,8 +29,7 @@ passed to the functions or they will be computed every time. A function for
 shortest path lengths is provided by the package which is more efficient than
 the igraph function for unweighted, undirected graphs:
 ```R
-all_pairs_shortest_paths(graph)
-subsets_shortest_paths(graph, nodes = V(graph))
+shortest_path_lengths(graph, nodes = V(graph))
 ```
 
 ## Authors
