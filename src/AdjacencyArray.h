@@ -2,6 +2,7 @@
 #define GCLUST_ADJACENCY_ARRAY_H
 
 #include "gclust_types.h"
+#include "Alloc.h"
 
 class NeighborhoodList
 {
@@ -53,12 +54,15 @@ public:
     edge_end, bool col_mjr)
   {
     nv_  = nv;
-    ne_  = (edge_end - edge_beg) / 2;
+    ne_  = (edge_end - edge_beg) >> 1;
+    //adj_ = gclust_alloc<vid_t, idx_t>(2*ne_);
     adj_ = new vid_t[2*ne_];
+    //vtx_ = gclust_alloc<vid_t*, idx_t>(nv_+1);
     vtx_ = new vid_t*[nv_+1];
 
     //Set up degrees
-    vid_t* deg = new vid_t[nv_];
+    //idx_t* deg = gclust_alloc<idx_t, idx_t>(nv_);
+    idx_t* deg = new idx_t[nv_];
 
     //Fill deg_ with 0
     for(idx_t i = 0; i < nv_; i++)
@@ -84,8 +88,8 @@ public:
     const idx_t inc = (col_mjr) ? 1 : 2;
     while((e1 != edge_end) && (e0 != edge_end))
     {
-      int v0 = *e0;
-      int v1 = *e1;
+      vid_t v0 = *e0;
+      vid_t v1 = *e1;
       *(vtx_[v0] + deg[v0]) = v1;
       *(vtx_[v1] + deg[v1]) = v0;
       deg[v0]++; deg[v1]++;
@@ -97,14 +101,17 @@ public:
   }
 
   template <typename MatrixType>
-  AdjacencyArray(idx_t nv, const MatrixType& el)
+  AdjacencyArray(const idx_t nv, const MatrixType& el)
   {
     nv_ = nv;
     ne_ = el.rows();
+    //adj_ = gclust_alloc<vid_t, idx_t>(2*ne_);
     adj_ = new vid_t[2*ne_];
+    //vtx_ = gclust_alloc<vid_t*, idx_t>(nv_+1);
     vtx_ = new vid_t*[nv_+1];
 
     //Set up degrees
+    //idx_t* deg = gclust_alloc<idx_t, idx_t>(nv_);
     idx_t* deg = new idx_t[nv_];
 
     //Fill deg_ with 0
@@ -148,6 +155,8 @@ public:
     if(vtx_) { delete [] vtx_; }
   }
 
+  //TODO: copy and assign ctors
+
   #ifdef _GC_CXX11
   AdjacencyArray(AdjacencyArray&& mov)
   {
@@ -157,7 +166,7 @@ public:
     vtx_ = mov.vtx_; mov.vtx_ = GC_NULLPTR;
   }
 
-  AdjacencyArray& operator=(AdjacencyArray& mov)
+  AdjacencyArray& operator=(AdjacencyArray&& mov)
   {
     if(adj_) { delete [] adj_; }
     if(vtx_) { delete [] vtx_; }
@@ -167,7 +176,7 @@ public:
     vtx_ = mov.vtx_; mov.vtx_ = GC_NULLPTR;
     return (*this);
   }
-  #endif
+  #endif//_GC_CXX11
 
   inline NeighborhoodList operator[](vid_t v) const
   {
