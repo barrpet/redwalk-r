@@ -16,16 +16,15 @@ Rcpp::NumericVector dissimilarity_sp_c(const AdjacencyArray& adj,
   //TODO: optimize
   gclust::idx_t idx = 0;
   gclust::flt_t mspi, mspj;
-  gclust::idx_t degi, degj;
   for(gclust::idx_t i = 0; i < (nv-1); i++)
   {
     NeighborhoodList nbrsi = adj[i];
-    degi = nbrsi.size();
+    gclust::idx_t degi = nbrsi.size();
     for(gclust::idx_t j = (i+1); j < nv; j++)
     {
       mspi = 0; mspj = 0;
       NeighborhoodList nbrsj = adj[j];
-      degj = nbrsj.size();
+      gclust::idx_t degj = nbrsj.size();
       for(gclust::idx_t n = 0; n < degi; n++)
         mspi += sp(nbrsi[n],j);
       mspi /= degi;
@@ -130,16 +129,15 @@ Rcpp::NumericVector dissimilarity_subsets_sp_c(const AdjacencyArray& adj,
 
   gclust::idx_t idx = 0;
   gclust::flt_t mspi, mspj;
-  gclust::idx_t degi, degj;
   for(gclust::idx_t i = 0; i < (ns-1); i++)
   {
     gclust::vid_t ti = s[i];
-    degi = adj.degree(ti);
+    gclust::idx_t degi = adj.degree(ti);
     NeighborhoodList nbrsi = adj[ti];
     for(gclust::idx_t j = i+1; j < ns; j++)
     {
       gclust::vid_t tj = s[j];
-      degj = adj.degree(tj);
+      gclust::idx_t degj = adj.degree(tj);
       NeighborhoodList nbrsj = adj[tj];
       mspi = 0; mspj = 0;
       for(gclust::idx_t n = 0; n < degi; n++)
