@@ -4,7 +4,6 @@
 #include <cstddef>
 #include <limits>
 #include <RcppEigen.h>
-#include <Rcpp.h>
 #include "OpenMP.h"
 
 #if __cplusplus >= 201103L
@@ -27,9 +26,9 @@
 
 namespace gclust
 {
-  typedef float float_t;
-  typedef R_xlen_t index_t;
-  typedef int vertex_id_t;
+  typedef double float_t;
+  typedef unsigned long int index_t;
+  typedef unsigned int vertex_id_t;
   typedef unsigned short ushort_t;
   typedef unsigned char uchar_t;
 
@@ -43,12 +42,12 @@ namespace gclust
   static GC_CONSTEXPR_OR_CONST vid_t NONE = std::numeric_limits<vid_t>::max();
   static GC_CONSTEXPR_OR_CONST ushort_t INF_US = std::numeric_limits<ushort_t>::max();
 
-  static GC_CONSTEXPR_OR_CONST flt_t INF_F = std::numeric_limits<float_t>::infinity();
-  static GC_CONSTEXPR_OR_CONST flt_t NAN_F = std::numeric_limits<float_t>::quiet_NaN();
-  static GC_CONSTEXPR_OR_CONST flt_t ZERO_F = float_t(0);
-  static GC_CONSTEXPR_OR_CONST flt_t ONE_F = float_t(1);
-  static GC_CONSTEXPR_OR_CONST flt_t NEG_ONE_F = float_t(-1);
-  static GC_CONSTEXPR_OR_CONST flt_t HALF_F = float_t(0.5);
+  static GC_CONSTEXPR_OR_CONST flt_t INF_F = std::numeric_limits<flt_t>::infinity();
+  static GC_CONSTEXPR_OR_CONST flt_t NAN_F = std::numeric_limits<flt_t>::quiet_NaN();
+  static GC_CONSTEXPR_OR_CONST flt_t ZERO_F = flt_t(0);
+  static GC_CONSTEXPR_OR_CONST flt_t ONE_F = flt_t(1);
+  static GC_CONSTEXPR_OR_CONST flt_t NEG_ONE_F = flt_t(-1);
+  static GC_CONSTEXPR_OR_CONST flt_t HALF_F = flt_t(0.5);
 };
 
 #endif //GCLUST_BASE_H
