@@ -5,7 +5,7 @@ test_that("cluster_berenhaut (karate) works", {
   g <- karate;
   sp <- distances(g, mode = "out", weights = NA, algorithm = "unweighted");
   cb <- cluster_berenhaut(g);
-  cbsp <- cluster_berenhaut(g, sp);
+  cbsp <- cluster_berenhaut(g, short_paths = sp);
   gtru <- V(g)$membership;
 
   expect_that(igraph::compare(stats::cutree(cb, 5), stats::cutree(cbsp, 5),
@@ -25,7 +25,7 @@ test_that("cluster_berenhaut (dolphins) works", {
   g <- dolphins;
   sp <- distances(g, mode = "out", weights = NA, algorithm = "unweighted");
   cb <- cluster_berenhaut(g);
-  cbsp <- cluster_berenhaut(g, sp);
+  cbsp <- cluster_berenhaut(g, short_paths = sp);
   gtru <- V(g)$membership;
 
   expect_that(igraph::compare(stats::cutree(cb, 5), stats::cutree(cbsp, 5),
