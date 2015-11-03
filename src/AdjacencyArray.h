@@ -7,10 +7,8 @@
 class NeighborhoodList
 {
 public:
-  typedef gclust::vertex_id_t vertex_id_t;
-  typedef vertex_id_t vid_t;
-  typedef gclust::index_t index_t;
-  typedef index_t idx_t;
+  typedef gclust::vid_t vid_t;
+  typedef gclust::idx_t idx_t;
   typedef vid_t* iterator;
   typedef const iterator const_iterator;
 
@@ -39,16 +37,14 @@ public:
 
   inline idx_t size()   const { return end_ - beg_; }
   inline idx_t degree() const { return end_ - beg_; }
-  inline vid_t operator[](int i) { return *(beg_ + i); }
+  inline vid_t operator[](int i) const { return *(beg_ + i); }
 };
 
 class AdjacencyArray
 {
 public:
-  typedef gclust::vertex_id_t vertex_id_t;
-  typedef vertex_id_t vid_t;
-  typedef gclust::index_t index_t;
-  typedef index_t idx_t;
+  typedef gclust::vid_t vid_t;
+  typedef gclust::idx_t idx_t;
 
 private:
   idx_t nv_;
@@ -130,7 +126,7 @@ public:
     //Get degree of each vertex
     typedef typename MatrixType::const_iterator citr;
     citr el_itr;
-    for(el_itr = el.begin(); el_itr != el.end(); el_itr++)
+    for(el_itr = el.begin(); el_itr != el.end(); ++el_itr)
       deg[(*el_itr)]++;
 
     //Set the heads
@@ -183,6 +179,7 @@ public:
 
   AdjacencyArray& operator=(const AdjacencyArray& cpy)
   {
+    if(this == &cpy) { return *this; }
     if(adj_) { delete [] adj_; }
     if(vtx_) { delete [] vtx_; }
     nv_ = cpy.nv_;
