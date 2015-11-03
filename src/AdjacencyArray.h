@@ -2,7 +2,6 @@
 #define GCLUST_ADJACENCY_ARRAY_H
 
 #include "gclust_types.h"
-#include "Alloc.h"
 
 class NeighborhoodList
 {
