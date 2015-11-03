@@ -1,7 +1,7 @@
 Package: gclust
 Type: Package
 Title: Network Community Detection
-Version: 0.6.0
+Version: 0.7.5
 Date: 2015-10-21
 Author: Berenhaut, K.S., Barr, P.S., Kogel, A.M.
 Maintainer: Peter Barr <barrps12@wfu.edu>
@@ -16,3 +16,4 @@ Imports:
     RcppEigen (>= 0.3.2.5.0)
 LinkingTo: Rcpp, RcppEigen
 LazyData: true
+RoxygenNote: 5.0.0
