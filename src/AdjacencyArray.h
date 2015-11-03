@@ -21,6 +21,15 @@ private:
 public:
   NeighborhoodList() : beg_(GC_NULLPTR), end_(GC_NULLPTR) { }
   NeighborhoodList(iterator beg, iterator end) : beg_(beg), end_(end) { }
+  NeighborhoodList(const NeighborhoodList& cpy) {
+    beg_ = cpy.beg_;
+    end_ = cpy.end_;
+  }
+  NeighborhoodList& operator=(const NeighborhoodList& cpy) {
+    beg_ = cpy.beg_;
+    end_ = cpy.end_;
+    return *this;
+  }
   ~NeighborhoodList() { beg_ = GC_NULLPTR; end_ = GC_NULLPTR; }
 
   const_iterator begin()  const { return beg_; }
@@ -155,9 +164,44 @@ public:
     if(vtx_) { delete [] vtx_; }
   }
 
-  //TODO: copy and assign ctors
+  AdjacencyArray(const AdjacencyArray& cpy)
+  {
+    nv_ = cpy.nv_;
+    ne_ = cpy.ne_;
+    const idx_t sum_deg = ne_ << 1;
+    //adj_ = gclust_alloc<vid_t, idx_t>(2*ne_);
+    adj_ = new vid_t[sum_deg];
+    //vtx_ = gclust_alloc<vid_t*, idx_t>(nv_+1);
+    vtx_ = new vid_t*[nv_+1];
+    for(idx_t i = 0; i < sum_deg; i++)
+      adj_[i] = cpy.adj_[i];
+    vtx_[0] = &adj_[0];
+    vtx_[nv_] = &adj_[sum_deg];
+    for(idx_t v = 1; v < nv_; v++)
+      vtx_[v] = vtx_[v-1] + cpy.degree(v-1);
+  }
 
-  #ifdef _GC_CXX11
+  AdjacencyArray& operator=(const AdjacencyArray& cpy)
+  {
+    if(adj_) { delete [] adj_; }
+    if(vtx_) { delete [] vtx_; }
+    nv_ = cpy.nv_;
+    ne_ = cpy.ne_;
+    const idx_t sum_deg = ne_ << 1;
+    //adj_ = gclust_alloc<vid_t, idx_t>(2*ne_);
+    adj_ = new vid_t[sum_deg];
+    //vtx_ = gclust_alloc<vid_t*, idx_t>(nv_+1);
+    vtx_ = new vid_t*[nv_+1];
+    for(idx_t i = 0; i < sum_deg; i++)
+      adj_[i] = cpy.adj_[i];
+    vtx_[0] = &adj_[0];
+    vtx_[nv_] = &adj_[sum_deg];
+    for(idx_t v = 1; v < nv_; v++)
+      vtx_[v] = vtx_[v-1] + cpy.degree(v-1);
+    return *this;
+  }
+
+  #ifdef _GC_CXX11 //C++11 Move Semantics
   AdjacencyArray(AdjacencyArray&& mov)
   {
     nv_ = mov.nv_; mov.nv_ = 0;
@@ -176,7 +220,7 @@ public:
     vtx_ = mov.vtx_; mov.vtx_ = GC_NULLPTR;
     return (*this);
   }
-  #endif//_GC_CXX11
+  #endif//_GC_CXX11 (C++11 Move Semantics)
 
   inline NeighborhoodList operator[](vid_t v) const
   {

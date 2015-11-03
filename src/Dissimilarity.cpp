@@ -15,7 +15,7 @@ Rcpp::NumericVector dissimilarity_sp_c(const AdjacencyArray& adj,
   //Do avg shortest paths of neighbors
   //TODO: optimize
   gclust::idx_t idx = 0;
-  double mspi, mspj;
+  gclust::flt_t mspi, mspj;
   gclust::idx_t degi, degj;
   for(gclust::idx_t i = 0; i < (nv-1); i++)
   {
@@ -77,57 +77,59 @@ Rcpp::NumericVector dissimilarity_subsets_sp_c(const AdjacencyArray& adj,
     is_targ[s[i]] = true;
 
   //Set up triplet list for sparse matrix
-  typedef Eigen::Triplet<double> T;
-  std::vector<T> tripletList;
+  typedef Eigen::Triplet<gclust::flt_t> Triplet;
+  std::vector<Triplet> tripletList;
   tripletList.reserve(nv + 2 * adj.ecount()); //TODO: reserve exact or close to
 
   //Build the tripletlist
   for(gclust::idx_t i = 0; i < nv; i++)
   {
-    tripletList.push_back(T(i, i, 1.0));
+    tripletList.push_back(Triplet(i, i, gclust::ONE_F));
     if(!is_targ[i])
     {
-      double val = -1.0 / (double)adj.degree(i);
+      gclust::flt_t val = gclust::NEG_ONE_F / (gclust::flt_t)adj.degree(i);
       NeighborhoodList nbrs = adj[i];
       NeighborhoodList::iterator nitr;
       for(nitr = nbrs.begin(); nitr != nbrs.end(); nitr++)
-        tripletList.push_back(T(i,*nitr,val));
+        tripletList.push_back(Triplet(i,*nitr,val));
     }
   }
 
   //set up the random walk normalized laplacian
-  Eigen::SparseMatrix<double> L(nv, nv);
+  Eigen::SparseMatrix<gclust::flt_t> L(nv, nv);
   L.setFromTriplets(tripletList.begin(), tripletList.end());
   L.makeCompressed();
 
   //free the triplets
-  std::vector<T>().swap(tripletList);
+  std::vector<Triplet>().swap(tripletList);
 
   //factor the RWNL
-  Eigen::SparseLU<Eigen::SparseMatrix<double, Eigen::ColMajor>,
+  Eigen::SparseLU<Eigen::SparseMatrix<gclust::flt_t, Eigen::ColMajor>,
                   Eigen::COLAMDOrdering<int> > solver;
   solver.analyzePattern(L);
   solver.factorize(L);
 
   //setup b
-  Eigen::MatrixXd b(ns, nv);
+  gclust::MatrixF b(nv, ns);
   b.fill(0);
   for(gclust::idx_t i = 0; i < ns; i++)
-    b.col(s[i]) = sp.col(i).cast<double>();
-  b.transposeInPlace();
+    b.row(s[i]) = sp.col(i).cast<gclust::flt_t>();
 
   //Solve
-  const Eigen::MatrixXd x = solver.solve(b);
+  const gclust::MatrixF x = solver.solve(b);
 
   //Free b
   b.resize(0,0);
+
+  //Free L
+  Eigen::SparseMatrix<gclust::flt_t, Eigen::ColMajor>().swap(L);
 
   //Allocate D - what will become a "dist"
   //number of entries in contiguous symmetric matrix with no diagonal
   Rcpp::NumericVector D((ns * ns - ns) >> 1);
 
   gclust::idx_t idx = 0;
-  double mspi, mspj;
+  gclust::flt_t mspi, mspj;
   gclust::idx_t degi, degj;
   for(gclust::idx_t i = 0; i < (ns-1); i++)
   {
@@ -139,7 +141,7 @@ Rcpp::NumericVector dissimilarity_subsets_sp_c(const AdjacencyArray& adj,
       gclust::vid_t tj = s[j];
       degj = adj.degree(tj);
       NeighborhoodList nbrsj = adj[tj];
-      mspi = mspj = 0;
+      mspi = 0; mspj = 0;
       for(gclust::idx_t n = 0; n < degi; n++)
         mspi += x(nbrsi[n],j);
       mspi /= degi;
