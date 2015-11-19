@@ -1,5 +1,5 @@
-#ifndef GCLUST_OPENMP_H
-#define GCLUST_OPENMP_H
+#ifndef REDWALK_OPENMP_H
+#define REDWALK_OPENMP_H
 
 #include <Rconfig.h>
 
@@ -18,4 +18,4 @@
 #endif //_OPENMP
 #endif //SUPPORT_OPENMP
 
-#endif //GCLUST_OPENMP_H
+#endif //REDWALK_OPENMP_H

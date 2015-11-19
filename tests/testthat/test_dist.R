@@ -3,7 +3,7 @@ context("distance")
 get_avg_nbr_shrt_path_min <- function(graph, v1, v2)
 {
   library("igraph");
-  library("gclust");
+  library("redwalk");
   nbrs_v1 <- neighbors(graph, v = v1, mode = "out");
   nbrs_v2 <- neighbors(graph, v = v2, mode = "out");
   sp_v1 <- distances(graph, v = nbrs_v1, to = v2, weights = NA,
@@ -49,12 +49,12 @@ d2rversion <- function(G, S)
 
 test_that("dissimilarity (karate) works", {
   library("igraph");
-  library("gclust");
+  library("redwalk");
   g <- karate;
   edg <- as_edgelist(g, F) - 1L
   storage.mode(edg) <- "integer"
   nv <- vcount(g)
-  d2 <- as.matrix(round(gclust:::dissimilarity_c(nv, edg), 8));
+  d2 <- as.matrix(round(redwalk:::dissimilarity_c(nv, edg), 8));
   d_1_34 <- round(get_avg_nbr_shrt_path_min(g, 1, 34), 8);
   d_6_10 <- round(get_avg_nbr_shrt_path_min(g, 6, 10), 8);
   expect_that(d2[1,34], equals(d_1_34));
@@ -69,13 +69,13 @@ test_that("dissimilarity (karate) works", {
 
 test_that("dissimilarity subsets (dolphins) works", {
   library("igraph");
-  library("gclust");
+  library("redwalk");
   g <- dolphins;
   s <- c(2L:12L, 40L:62L);
   edg <- as_edgelist(g, F) - 1L;
   storage.mode(edg) <- "integer";
   nv <- vcount(g);
-  d2 <- as.matrix(round(gclust:::dissimilarity_subsets_c(nv, edg, s-1L), 8));
+  d2 <- as.matrix(round(redwalk:::dissimilarity_subsets_c(nv, edg, s-1L), 8));
   d2g <- d2rversion(g, s);
   d2g <- round(pmin(d2g, t(d2g)), 8);
   expect_that(as.vector(d2), equals(as.vector(d2g)));
