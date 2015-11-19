@@ -1,31 +1,31 @@
-#ifndef GCLUST_DISSIMILARITY_H
-#define GCLUST_DISSIMILARITY_H
+#ifndef REDWALK_DISSIMILARITY_H
+#define REDWALK_DISSIMILARITY_H
 
-#include "gclust_types.h"
+#include "redwalk_types.h"
 
 class AdjacencyArray;
 
 Rcpp::NumericVector dissimilarity_sp_c(const AdjacencyArray& adj,
-  const gclust::MatrixUS& sp);
+  const redwalk::MatrixUS& sp);
 
 // [[Rcpp::export(rng = false)]]
-Rcpp::NumericVector dissimilarity_sp_c(const gclust::idx_t nv,
-  const Rcpp::IntegerMatrix& el, const gclust::MatrixUS& sp);
+Rcpp::NumericVector dissimilarity_sp_c(const redwalk::idx_t nv,
+  const Rcpp::IntegerMatrix& el, const redwalk::MatrixUS& sp);
 
 // [[Rcpp::export(rng = false)]]
-Rcpp::NumericVector dissimilarity_c(const gclust::idx_t nv,
+Rcpp::NumericVector dissimilarity_c(const redwalk::idx_t nv,
   const Rcpp::IntegerMatrix& el);
 
 Rcpp::NumericVector dissimilarity_subsets_sp_c(const AdjacencyArray& adj, const
-  Rcpp::IntegerVector& s, const gclust::MatrixUS& sp);
+  Rcpp::IntegerVector& s, const redwalk::MatrixUS& sp);
 
 // [[Rcpp::export(rng = false)]]
-Rcpp::NumericVector dissimilarity_subsets_sp_c(const gclust::idx_t nv,
+Rcpp::NumericVector dissimilarity_subsets_sp_c(const redwalk::idx_t nv,
   const Rcpp::IntegerMatrix& el, const Rcpp::IntegerVector& s,
-  const gclust::MatrixUS& sp);
+  const redwalk::MatrixUS& sp);
 
 // [[Rcpp::export(rng = false)]]
-Rcpp::NumericVector dissimilarity_subsets_c(const gclust::idx_t nv,
+Rcpp::NumericVector dissimilarity_subsets_c(const redwalk::idx_t nv,
   const Rcpp::IntegerMatrix& el, const Rcpp::IntegerVector& s);
 
-#endif //GCLUST_DISSIMILARITY_H
+#endif //REDWALK_DISSIMILARITY_H

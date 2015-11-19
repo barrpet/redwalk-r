@@ -1,4 +1,4 @@
-#' @useDynLib gclust
+#' @useDynLib redwalk
 #' @importFrom Rcpp evalCpp
 #' @import RcppEigen
 #' @importFrom igraph as_edgelist vcount V distances degree neighbors
@@ -6,23 +6,23 @@
 #' @importFrom igraph graph.laplacian
 NULL
 
-#' The gclust package
+#' The redwalk package
 #'
-#' \pkg{gclust} is an R package for community detection that uses the
+#' \pkg{redwalk} is an R package for community detection that uses the
 #' \pkg{\link{igraph}} package graphs for input and \code{\link{hclust}} objects
 #' from the \pkg{\link{stats}} package for outputting the results of the
 #' heirarchal clustering. For the main algorithm, see
-#' \code{\link{cluster_berenhaut}}.
+#' \code{\link{cluster_redwalk}}.
 #'
-#' @name gclust-package
-#' @aliases gclust-package gclust
+#' @name redwalk-package
+#' @aliases redwalk-package redwalk
 #' @docType package
 #' @author Dr. Kenneth Berenhaut \email{berenhks@@wfu.edu}, Peter S. Barr
 #'   \email{barrps12@@wfu.edu}, Alyssa M. Kogel \email{kogeam11@@wfu.edu}
 #' @keywords cluster graphs package
 #'
 #' @section Community Detection:
-#'   \code{\link{cluster_berenhaut}} is the main function of the package. It
+#'   \code{\link{cluster_redwalk}} is the main function of the package. It
 #'   takes an igraph graph and optionally a shortest paths matrix as input and
 #'   returns an hclust object. Unlike most heirarchal clustering methods on
 #'   graphs, the dendrograms produced by this method are extremely useful in
@@ -51,7 +51,7 @@ NULL
 #'   which is optimized for the APSP problem on undirected, unweighted graphs.
 #'
 #' @section Heirarchal Clustering:
-#'   gclust uses \code{\link{hclust}} objects to return information about
+#'   redwalk uses \code{\link{hclust}} objects to return information about
 #'   community structure rather than igraph \code{\link{communities}} object due
 #'   to the fact that the igraph communities make heavy use of modularity which
 #'   the algorithm do not make use of in attempting to find community structure.
@@ -84,6 +84,6 @@ NULL
 #'   \url{http://college.wfu.edu/cs}
 #'
 #' @seealso
-#'   \code{\link{cluster_berenhaut}};
+#'   \code{\link{cluster_redwalk}};
 #'   \code{\link{shortest_path_lengths}};
 NULL

@@ -1,9 +1,9 @@
 #' Check Graph
 #'
-#' Checks whether a graph is okay for input to gclust. The graph must be an
+#' Checks whether a graph is okay for input to redwalk. The graph must be an
 #' igraph graph object, be simple, connected, undirected. If \code{graph} has
 #' weighted edges, \code{check_graph} allows it as all functions in
-#' \link{\pkg{gclust}} ignore edge weights.
+#' \link{\pkg{redwalk}} ignore edge weights.
 #'
 #' @param graph An igraph object
 #' @return returns \code{TRUE} invisibly if the graph is valid. Otherwise,
