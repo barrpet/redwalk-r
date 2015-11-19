@@ -2,7 +2,7 @@ context("paths")
 
 test_that("all pairs shortest paths (karate) works", {
   library("igraph")
-  library("gclust")
+  library("redwalk")
   g <- karate
   my_sp <- shortest_path_lengths(g)
   ig_sp <- distances(g, weights = NA, algorithm = "unweighted")
@@ -11,7 +11,7 @@ test_that("all pairs shortest paths (karate) works", {
 
 test_that("subsets shortest paths (karate) works", {
   library("igraph")
-  library("gclust")
+  library("redwalk")
   g <- karate
   s <- c(2L:8L, 22L:30L)
   my_sp <- shortest_path_lengths(g, s)
@@ -21,7 +21,7 @@ test_that("subsets shortest paths (karate) works", {
 
 test_that("all pairs shortest paths (dolphins) works", {
   library("igraph")
-  library("gclust")
+  library("redwalk")
   g <- dolphins
   my_sp <- shortest_path_lengths(g)
   ig_sp <- distances(g, weights = NA, algorithm = "unweighted")
@@ -30,7 +30,7 @@ test_that("all pairs shortest paths (dolphins) works", {
 
 test_that("subsets shortest paths (dolphins) works", {
   library("igraph")
-  library("gclust")
+  library("redwalk")
   g <- dolphins
   s <- 2L:vcount(g)
   my_sp <- shortest_path_lengths(g, s)

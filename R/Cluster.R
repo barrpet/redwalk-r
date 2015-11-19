@@ -20,14 +20,14 @@
 #' shortest paths will be calculated. Note: much faster if \code{short_paths} is
 #' provided and much faster if \code{short_paths} is of class "matrix" rather
 #' than "dist".
-#' @return \code{cluster_berenhaut} returns a \code{\link{hclust}} object from
+#' @return \code{cluster_redwalk} returns a \code{\link{hclust}} object from
 #' the \pkg{\link{stats}} package.
 #' @export
 #' @keywords cluster graphs
 #'
 #' @examples
 #' require(stats)
-#' cb <- cluster_berenhaut(karate)
+#' cb <- cluster_redwalk(karate)
 #' ## cb is an hclust object
 #' plot(cb)
 #' ## membership for different community sizes (k)
@@ -36,12 +36,12 @@
 #'
 #' ## using precomputed shortest paths
 #' sp <- shortest_path_lengths(dolphins)
-#' cbd <- cluster_berenhaut(dolphins, short_paths = sp)
+#' cbd <- cluster_redwalk(dolphins, short_paths = sp)
 #' plot(cbd)
 #' cutree(cbd, k = 2)
 #' cutree(cbd, k = 4)
 #'
-cluster_berenhaut <- function(graph, nodes = V(graph), short_paths = NULL)
+cluster_redwalk <- function(graph, nodes = V(graph), short_paths = NULL)
 {
   check_graph(graph);
   nv <- vcount(graph);
