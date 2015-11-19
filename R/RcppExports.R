@@ -2,26 +2,26 @@
 # Generator token: 10BE3573-1514-4C36-9D1C-5A225CD40393
 
 dissimilarity_sp_c <- function(nv, el, sp) {
-    .Call('gclust_dissimilarity_sp_c', PACKAGE = 'gclust', nv, el, sp)
+    .Call('redwalk_dissimilarity_sp_c', PACKAGE = 'redwalk', nv, el, sp)
 }
 
 dissimilarity_c <- function(nv, el) {
-    .Call('gclust_dissimilarity_c', PACKAGE = 'gclust', nv, el)
+    .Call('redwalk_dissimilarity_c', PACKAGE = 'redwalk', nv, el)
 }
 
 dissimilarity_subsets_sp_c <- function(nv, el, s, sp) {
-    .Call('gclust_dissimilarity_subsets_sp_c', PACKAGE = 'gclust', nv, el, s, sp)
+    .Call('redwalk_dissimilarity_subsets_sp_c', PACKAGE = 'redwalk', nv, el, s, sp)
 }
 
 dissimilarity_subsets_c <- function(nv, el, s) {
-    .Call('gclust_dissimilarity_subsets_c', PACKAGE = 'gclust', nv, el, s)
+    .Call('redwalk_dissimilarity_subsets_c', PACKAGE = 'redwalk', nv, el, s)
 }
 
 shortest_path_lengths_c <- function(nv, el) {
-    .Call('gclust_shortest_path_lengths_c', PACKAGE = 'gclust', nv, el)
+    .Call('redwalk_shortest_path_lengths_c', PACKAGE = 'redwalk', nv, el)
 }
 
 shortest_path_lengths_subsets_c <- function(nv, el, s) {
-    .Call('gclust_shortest_path_lengths_subsets_c', PACKAGE = 'gclust', nv, el, s)
+    .Call('redwalk_shortest_path_lengths_subsets_c', PACKAGE = 'redwalk', nv, el, s)
 }
 

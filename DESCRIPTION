@@ -1,4 +1,4 @@
-Package: gclust
+Package: redwalk
 Type: Package
 Title: Network Community Detection
 Version: 0.7.5

@@ -37,7 +37,7 @@ hclust_avg <- function(d, members = NULL)
 
   # FORTRAN
   storage.mode(d) <- "double";
-  hcl <- .Fortran("hclustpb", PACKAGE = "gclust",
+  hcl <- .Fortran("hclustpb", PACKAGE = "redwalk",
     n = nv,
     len = len,
     ia = integer(nv),
@@ -51,7 +51,7 @@ hclust_avg <- function(d, members = NULL)
 
   ## 2nd step: interpret the information that we now have
   ## as merge, height, and order lists.
-  hcass <- .Fortran("hcass2pb", PACKAGE = "gclust",
+  hcass <- .Fortran("hcass2pb", PACKAGE = "redwalk",
     n = nv, # checked above.
     ia = hcl$ia,
     ib = hcl$ib,

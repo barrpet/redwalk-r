@@ -1,11 +1,11 @@
 context("cluster")
 
-test_that("cluster_berenhaut (karate) works", {
-  library("gclust");
+test_that("cluster_redwalk (karate) works", {
+  library("redwalk");
   g <- karate;
   sp <- distances(g, mode = "out", weights = NA, algorithm = "unweighted");
-  cb <- cluster_berenhaut(g);
-  cbsp <- cluster_berenhaut(g, short_paths = sp);
+  cb <- cluster_redwalk(g);
+  cbsp <- cluster_redwalk(g, short_paths = sp);
   gtru <- V(g)$membership;
 
   expect_that(igraph::compare(stats::cutree(cb, 5), stats::cutree(cbsp, 5),
@@ -20,12 +20,12 @@ test_that("cluster_berenhaut (karate) works", {
     label = "clustering with supplied shortest paths matches ground truth");
 })
 
-test_that("cluster_berenhaut (dolphins) works", {
-  library("gclust");
+test_that("cluster_redwalk (dolphins) works", {
+  library("redwalk");
   g <- dolphins;
   sp <- distances(g, mode = "out", weights = NA, algorithm = "unweighted");
-  cb <- cluster_berenhaut(g);
-  cbsp <- cluster_berenhaut(g, short_paths = sp);
+  cb <- cluster_redwalk(g);
+  cbsp <- cluster_redwalk(g, short_paths = sp);
   gtru <- V(g)$membership;
 
   expect_that(igraph::compare(stats::cutree(cb, 5), stats::cutree(cbsp, 5),

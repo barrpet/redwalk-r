@@ -1,4 +1,4 @@
-# gclust
+# redwalk
 
 An R package for community detection on (connected, undirected, simple)
 networks. Makes use of the
@@ -9,11 +9,11 @@ If the network edges contain weights they will be ignored.
 
 Clone or download this repo and install in R with:
 ```R
-install.packages("/path/to/package/gclust.zip", repos = NULL, type = "source")
+install.packages("/path/to/package/redwalk.zip", repos = NULL, type = "source")
 ```
 or using the devtools package:
 ```R
-devtools::install_github("barrpet/gclust")
+devtools::install_github("barrpet/redwalk")
 ```
 
 ## Usage
@@ -21,7 +21,7 @@ devtools::install_github("barrpet/gclust")
 Following the igraph package convention for community detection functions, a
 heirarchal clustering (returning a `hclust` object) can be obtained with:
 ```R
-cluster_berenhaut(graph, nodes = V(graph), short_paths = NULL)
+cluster_redwalk(graph, nodes = V(graph), short_paths = NULL)
 ```
 `graph` can be either an igraph object or a |E|x2 matrix representing the
 undirected edges of a graph. It is reccomended that the shortest path lengths be
