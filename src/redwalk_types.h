@@ -1,16 +1,15 @@
-#ifndef REDWALK_BASE_H
-#define REDWALK_BASE_H
+#ifndef REDWALK_TYPES_H
+#define REDWALK_TYPES_H
 
 #include <cstddef>
 #include <limits>
 #include <RcppEigen.h>
 #include "OpenMP.h"
 
-#if __cplusplus >= 201103L
-#define _RW_CXX11 1
-#endif
+// [[Rcpp::depends(RcppEigen)]]
 
-#ifdef _RW_CXX11
+#if __cplusplus >= 201103L
+#  define _RW_CXX11 1
 #  define RW_NULLPTR nullptr
 #  define RW_CONSTEXPR constexpr
 #  define RW_CONSTEXPR_OR_CONST constexpr
@@ -27,8 +26,8 @@
 namespace redwalk
 {
   typedef double float_t;
-  typedef unsigned long int index_t;
-  typedef unsigned int vertex_id_t;
+  typedef R_xlen_t index_t;
+  typedef R_xlen_t vertex_id_t;
   typedef unsigned short ushort_t;
   typedef unsigned char uchar_t;
 
@@ -50,4 +49,4 @@ namespace redwalk
   static RW_CONSTEXPR_OR_CONST flt_t HALF_F = flt_t(0.5);
 };
 
-#endif //REDWALK_BASE_H
+#endif //REDWALK_TYPES_H

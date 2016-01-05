@@ -3,6 +3,8 @@
 
 #include "redwalk_types.h"
 
+// [[Rcpp::depends(RcppEigen)]]
+
 class AdjacencyArray;
 
 redwalk::MatrixUS shortest_path_lengths_c(const AdjacencyArray& adj);

@@ -3,6 +3,8 @@
 
 #include "redwalk_types.h"
 
+// [[Rcpp::depends(RcppEigen)]]
+
 class AdjacencyArray;
 
 Rcpp::NumericVector dissimilarity_sp_c(const AdjacencyArray& adj,
