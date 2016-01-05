@@ -1,9 +1,8 @@
 #' @useDynLib redwalk
-#' @importFrom Rcpp evalCpp
-#' @import RcppEigen
-#' @importFrom igraph as_edgelist vcount V distances degree neighbors
-#' @importFrom igraph is.igraph is.directed is.connected is.weighted is.simple
-#' @importFrom igraph graph.laplacian
+# @importFrom stats hclust
+#' @importFrom igraph as_edgelist vcount V
+#' @importFrom igraph is.igraph is.directed is.connected is.simple
+# @importFrom igraph graph.laplacian distances degree neighbors is.weighted
 NULL
 
 #' The redwalk package

@@ -26,7 +26,8 @@
 #' @keywords cluster graphs
 #'
 #' @examples
-#' require(stats)
+#' require(stats, quietly = TRUE)
+#' require(Rcpp, quietly = TRUE)
 #' cb <- cluster_redwalk(karate)
 #' ## cb is an hclust object
 #' plot(cb)

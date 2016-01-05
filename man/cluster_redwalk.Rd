@@ -4,7 +4,7 @@
 \alias{cluster_redwalk}
 \title{Berenhaut Community Detection on Networks}
 \usage{
-cluster_redwalk(graph, nodes = V(graph), short_paths = NULL)
+cluster_redwalk(graph, nodes = V(graph), diss = NULL)
 }
 \arguments{
 \item{graph}{an igraph object.}
@@ -12,12 +12,12 @@ cluster_redwalk(graph, nodes = V(graph), short_paths = NULL)
 \item{nodes}{a subset of the nodes in the graph to cluster, defaults to all
 nodes (full community detection)}
 
-\item{short_paths}{either a \eqn{|V|x|V|} symmetric matrix containing the shortest
-path distances between the vertices in \code{graph} or a \code{\link{dist}}
-object from the \pkg{\link{stats}} package. If \code{NULL} (default), the
-shortest paths will be calculated. Note: much faster if \code{short_paths} is
-provided and much faster if \code{short_paths} is of class "matrix" rather
-than "dist".}
+\item{diss}{either a \eqn{|V|x|V|} symmetric dissimilarity matrix of the
+vertices in \code{graph} or a \code{\link{dist}} object from the
+\pkg{\link{stats}} package. If \code{NULL} (default), the shortest paths will
+be calculated. Note: much faster if \code{diss} is
+provided and much faster if \code{diss} is of class "matrix" rather than
+"dist".}
 }
 \value{
 \code{cluster_redwalk} returns a \code{\link{hclust}} object from
@@ -36,7 +36,8 @@ maximize modularity (although the resulting partitioning results in a maximum
 modularity that is competitive with the top community detection algorithms).
 }
 \examples{
-require(stats)
+require(stats, quietly = TRUE)
+require(Rcpp, quietly = TRUE)
 cb <- cluster_redwalk(karate)
 ## cb is an hclust object
 plot(cb)
@@ -46,7 +47,7 @@ cutree(cb, k = 3)
 
 ## using precomputed shortest paths
 sp <- shortest_path_lengths(dolphins)
-cbd <- cluster_redwalk(dolphins, short_paths = sp)
+cbd <- cluster_redwalk(dolphins, diss = sp)
 plot(cbd)
 cutree(cbd, k = 2)
 cutree(cbd, k = 4)
