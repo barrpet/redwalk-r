@@ -39,10 +39,10 @@ Rcpp::NumericVector dissimilarity_sp_c(const AdjacencyArray& adj,
   }
 
   //Create dist object
+  D.attr("Size") = int(nv); //TODO: why
+  D.attr("class") = "dist";
   D.attr("Diag") = false;
   D.attr("Upper") = false;
-  D.attr("Size") = nv;
-  D.attr("class") = "dist";
 
   return D;
 }
@@ -153,10 +153,10 @@ Rcpp::NumericVector dissimilarity_subsets_sp_c(const AdjacencyArray& adj,
   }
 
   //Create dist object
-  D.attr("Diag") = false;
-  D.attr("Upper") = false;
   D.attr("Size") = ns;
   D.attr("class") = "dist";
+  D.attr("Diag") = false;
+  D.attr("Upper") = false;
 
   return D;
 }
