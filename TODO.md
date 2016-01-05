@@ -1,6 +1,5 @@
 # TODO
 
-- Accept either igraph objects or edgelists
 - Fails for WIN32
 - Merge subsets and full functions
 - Make use of OpenMP where applicable
