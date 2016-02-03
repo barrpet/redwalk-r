@@ -1,5 +1,6 @@
 #' @useDynLib redwalk
-# @importFrom stats hclust
+#' @import Rcpp
+#' @importFrom stats hclust
 #' @importFrom igraph as_edgelist vcount V
 #' @importFrom igraph is.igraph is.directed is.connected is.simple
 # @importFrom igraph graph.laplacian distances degree neighbors is.weighted

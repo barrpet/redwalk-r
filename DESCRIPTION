@@ -1,8 +1,8 @@
 Package: redwalk
 Type: Package
 Title: Network Community Detection
-Version: 0.7.5
-Date: 2015-01-04
+Version: 0.7.6
+Date: 2016-02-03
 Author: Berenhaut, K.S., Barr, P.S., Kogel, A.M.
 Maintainer: Peter Barr <barrps12@wfu.edu>
 Description: Community detection on networks.
@@ -12,11 +12,11 @@ Depends:
     R (>= 3.0.2),
     igraph (>= 1.0.0)
 Imports:
-    stats
-Suggests:
-    fastcluster (>= 1.1.0),
+    stats,
     Rcpp (>= 0.11.0),
     RcppEigen (>= 0.3.2.5.0)
+Suggests:
+    fastcluster (>= 1.1.0),
 LinkingTo:
     Rcpp (>= 0.11.0),
     RcppEigen (>= 0.3.2.5.0)

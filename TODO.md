@@ -1,5 +1,6 @@
 # TODO
 
+- Need to import Rcpp, but check complains if not required?
 - Fails for WIN32
 - Merge subsets and full functions
 - Make use of OpenMP where applicable
