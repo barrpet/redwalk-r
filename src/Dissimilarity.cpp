@@ -1,6 +1,4 @@
 #include "Dissimilarity.h"
-#include "Paths.h"
-#include "AdjacencyArray.h"
 
 Rcpp::NumericVector dissimilarity_sp_c(const AdjacencyArray& adj,
   const redwalk::MatrixUS& sp)
