@@ -68,7 +68,7 @@ test_that("dissimilarity subsets (dolphins) works", {
   edg <- as_edgelist(g, F) - 1L;
   storage.mode(edg) <- "integer";
   nv <- vcount(g);
-  d2 <- as.matrix(round(redwalk:::dissimilarity(g, s), 8));
+  d2 <- as.matrix(round(dissimilarity(g, s), 8));
   d2g <- d2rversion(g, s);
   d2g <- round(pmin(d2g, t(d2g)), 8);
   expect_that(as.vector(d2), equals(as.vector(d2g)));

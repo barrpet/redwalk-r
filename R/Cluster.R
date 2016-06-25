@@ -14,10 +14,10 @@
 #' @param graph an igraph object.
 #' @param nodes a subset of the nodes in the graph to cluster, defaults to all
 #' nodes (full community detection)
-#' @param diss either a \eqn{|V|x|V|} symmetric dissimilarity matrix of the
+#' @param short_paths either a \eqn{|V|x|V|} symmetric dissimilarity matrix of the
 #' vertices in \code{graph} or a \code{\link{dist}} object from the
 #' \pkg{\link{stats}} package. If \code{NULL} (default), the shortest paths will
-#' be calculated. Note: much faster if \code{diss} is
+#' be calculated. Note: much faster if \code{short_paths} is
 #' provided and much faster if \code{diss} is of class "matrix" rather than
 #' "dist".
 #' @return \code{cluster_redwalk} returns a \code{\link{hclust}} object from
@@ -36,12 +36,12 @@
 #'
 #' ## using precomputed shortest paths
 #' sp <- shortest_path_lengths(dolphins)
-#' cbd <- cluster_redwalk(dolphins, diss = sp)
+#' cbd <- cluster_redwalk(dolphins, short_paths = sp)
 #' plot(cbd)
 #' cutree(cbd, k = 2)
 #' cutree(cbd, k = 4)
 #'
-cluster_redwalk <- function(graph, nodes = V(graph), diss = NULL)
+cluster_redwalk <- function(graph, nodes = V(graph), short_paths = NULL)
 {
   # check graph
   # TODO: check here or dissimilarity?
@@ -56,7 +56,7 @@ cluster_redwalk <- function(graph, nodes = V(graph), diss = NULL)
   stopifnot(ns0 == ns, ns >= 2, all(nodes >= 1), all(nodes <= nv))
 
   # compute the dissimilarity
-  D <- dissimilarity(graph, nodes, diss)
+  D <- dissimilarity(graph, nodes, short_paths)
 
   # return the hclust object, using fastcluster if available
   if(requireNamespace("fastcluster", quietly = TRUE)) {

@@ -70,7 +70,7 @@ dissimilarity_full <- function(graph, short_paths)
   # of the neighbors of i to j.
   # To make symmetric, D_ij = D_ji = min(D_ij, D_ji)
   # Can do adjacency matrix times shortest paths matrix then divide rows by the
-  # degree of the node
+  # degree of the node.
   A <- as_adj(graph, type = "both", names = FALSE)
   deg <- degree(graph, mode = "out", loops = FALSE)
   D <- as.matrix(A %*% short_paths / deg)
@@ -80,11 +80,24 @@ dissimilarity_full <- function(graph, short_paths)
 # compute the dissimilarity for a subset of the nodes in the graph
 dissimilarity_subsets <- function(graph, nodes, short_paths)
 {
-  stop("Not yet implemented")
-  # 1) create random walk normalized laplacian
-  # 2) factor the above matrix
-  # 3) create B matrix (columns of b vectors)
-  # 4) Solve
-  # 5) Do average of neighbors, making symmetric
-  # 6) Convert to dist object and return
+  nv <- vcount(graph)
+  nm <- length(nodes)
+  L <- graph.laplacian(graph, sparse = TRUE) / degree(graph, mode = "out",
+                                                      loops = FALSE)
+  L[nodes,] <- 0
+  diag(L) <- 1
+  b <- Matrix(data = 0, nrow = nv, ncol = nm, sparse = FALSE)
+  b[nodes,] <- short_paths
+  D <- Matrix::solve(L, b)
+  D2 <- matrix(0, nrow = nm, ncol = nm)
+  for(v in 1:nm) {
+    nbrs <- as.integer(neighbors(graph,nodes[v]))
+    if(length(nbrs) <= 1) {
+      D2[v,] <- D[nbrs,];
+    } else {
+      D2[v,] = apply(D[nbrs,], 2, mean);
+    }
+  }
+  diag(D2) <- 0;
+  return(as.dist(pmin(D2, t(D2)), diag = FALSE))
 }
