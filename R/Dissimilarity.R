@@ -1,15 +1,38 @@
-# compute the dissimilarity to be used in the redwalk clustering
+#' Redwalk Dissimilarity Measure
+#'
+#' Compute the dissimilarity to be used in the redwalk clustering.
+#'
+#' @param graph an igraph object.
+#' @param nodes a subset of the nodes in the graph to cluster, defaults to all
+#' nodes (full community detection)
+#' @param short_paths either a \eqn{|V|x|V|} symmetric dissimilarity matrix of
+#' the vertices in \code{graph} or a \code{\link{dist}} object from the
+#' \pkg{\link{stats}} package. If \code{NULL} (default), the shortest paths will
+#' be calculated. Note: much faster if \code{diss} is provided and much faster
+#' if \code{diss} is of class "matrix" rather than "dist".
+#' @return \code{dissimilarity} returns a dist object.
+#'
+#' @export
+#' @keywords cluster graph dissimilarity redwalk
+#'
+#' @examples
+#' require(stats, quietly = TRUE)
+#' D <- dissimilarity(karate)
+#' D
+#'
 dissimilarity <- function(graph, nodes = V(graph), short_paths = NULL)
 {
   # check the graph
   check_graph(graph)
+
   # check the nodes
   nv <- vcount(graph)
   ns0 <- length(nodes);
   nodes <- sort(unique(as.integer(nodes)))
   ns <- length(nodes);
   stopifnot(ns0 == ns, ns >= 2, all(nodes >= 1), all(nodes <= nv))
-  # get shortest paths if needed
+
+  # get shortest paths if needed, or check provided
   if(is.null(short_paths)) {
     short_paths = as.dist(shortest_path_lengths(graph, nodes))
   } else {
