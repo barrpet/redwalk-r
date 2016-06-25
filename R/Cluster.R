@@ -14,11 +14,11 @@
 #' @param graph an igraph object.
 #' @param nodes a subset of the nodes in the graph to cluster, defaults to all
 #' nodes (full community detection)
-#' @param diss either a \eqn{|V|x|V|} symmetric dissimilarity matrix of the
+#' @param short_paths either a \eqn{|V|x|V|} symmetric dissimilarity matrix of the
 #' vertices in \code{graph} or a \code{\link{dist}} object from the
 #' \pkg{\link{stats}} package. If \code{NULL} (default), the shortest paths will
-#' be calculated. Note: much faster if \code{diss} is
-#' provided and much faster if \code{diss} is of class "matrix" rather than
+#' be calculated. Note: much faster if \code{short_paths} is
+#' provided and much faster if \code{short_paths} is of class "matrix" rather than
 #' "dist".
 #' @return \code{cluster_redwalk} returns a \code{\link{hclust}} object from
 #' the \pkg{\link{stats}} package.
@@ -37,12 +37,12 @@
 #'
 #' ## using precomputed shortest paths
 #' sp <- shortest_path_lengths(dolphins)
-#' cbd <- cluster_redwalk(dolphins, diss = sp)
+#' cbd <- cluster_redwalk(dolphins, short_paths = sp)
 #' plot(cbd)
 #' cutree(cbd, k = 2)
 #' cutree(cbd, k = 4)
 #'
-cluster_redwalk <- function(graph, nodes = V(graph), diss = NULL)
+cluster_redwalk <- function(graph, nodes = V(graph), short_paths = NULL)
 {
   check_graph(graph);
   nv <- vcount(graph);
@@ -54,9 +54,9 @@ cluster_redwalk <- function(graph, nodes = V(graph), diss = NULL)
   stopifnot(ns0 == ns, ns >= 2, all(nodes >= 1), all(nodes <= nv));
   all_nodes <- (ns == nv);
 
-  # Check if diss is provided, calculate if not
+  # Check if short_paths is provided, calculate if not
   # TODO: really bad that shortest paths is a matrix rather than dist
-  if(is.null(diss)) {
+  if(is.null(short_paths)) {
     if(all_nodes) {
       D <- dissimilarity_c(nv, edglst);
     } else {
@@ -64,28 +64,28 @@ cluster_redwalk <- function(graph, nodes = V(graph), diss = NULL)
     }
   } else {
     # if given shortest paths as dist, convert to matrix
-    if("dist" %in% class(diss)) {
-      diss <- as.matrix(diss);
+    if("dist" %in% class(short_paths)) {
+      short_paths <- as.matrix(short_paths);
     }
-    # need diss to be a matrix
-    if(!("matrix" %in% class(diss))) {
-      stop("diss must be of class matrix or dist");
+    # need short_paths to be a matrix
+    if(!("matrix" %in% class(short_paths))) {
+      stop("short_paths must be of class matrix or dist");
     }
     # check square
-    dim_sp <- dim(diss);
+    dim_sp <- dim(short_paths);
     if(dim_sp[1] != dim_sp[2])
-      stop("diss has incorrect dimensions"); #need square
+      stop("short_paths has incorrect dimensions"); #need square
 
     if(all_nodes) {
       if(dim_sp[1] != nv)
-        stop("diss has incorrect dimensions");
-      D <- dissimilarity_sp_c(nv, edglst, diss);
+        stop("short_paths has incorrect dimensions");
+      D <- dissimilarity_sp_c(nv, edglst, short_paths);
     } else {
       if(dim_sp[1] != nv & dim_sp[1] != ns)
-        stop("diss has incorrect dimensions");
+        stop("short_paths has incorrect dimensions");
       if(dim_sp[1] == nv)
-        diss <- diss[nodes,nodes];
-      D <- dissimilarity_subsets_sp_c(nv, edglst, nodes-1, diss);
+        short_paths <- short_paths[nodes,nodes];
+      D <- dissimilarity_subsets_sp_c(nv, edglst, nodes-1, short_paths);
     }
   }
 

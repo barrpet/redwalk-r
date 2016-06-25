@@ -14,7 +14,8 @@ Depends:
 Imports:
     stats,
     Rcpp (>= 0.11.0),
-    RcppEigen (>= 0.3.2.5.0)
+    RcppEigen (>= 0.3.2.5.0),
+    Matrix
 Suggests:
     fastcluster (>= 1.1.0),
 LinkingTo:

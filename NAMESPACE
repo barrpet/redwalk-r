@@ -3,6 +3,8 @@
 export(cluster_redwalk)
 export(shortest_path_lengths)
 import(Rcpp)
+importFrom(Matrix,Matrix)
+importFrom(Matrix,solve)
 importFrom(igraph,V)
 importFrom(igraph,as_edgelist)
 importFrom(igraph,is.connected)

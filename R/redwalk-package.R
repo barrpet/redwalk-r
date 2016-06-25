@@ -3,6 +3,7 @@
 #' @importFrom stats hclust
 #' @importFrom igraph as_edgelist vcount V
 #' @importFrom igraph is.igraph is.directed is.connected is.simple
+#' @importFrom Matrix Matrix solve
 # @importFrom igraph graph.laplacian distances degree neighbors is.weighted
 NULL
 
