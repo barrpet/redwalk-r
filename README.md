@@ -25,11 +25,10 @@ cluster_redwalk(graph, nodes = V(graph), short_paths = NULL)
 ```
 `graph` can be either an igraph object or a |E|x2 matrix representing the
 undirected edges of a graph. It is reccomended that the shortest path lengths be
-passed to the functions or they will be computed every time. A function for
-shortest path lengths is provided by the package which is more efficient than
-the igraph function for unweighted, undirected graphs:
+passed to the functions or they will be computed every time. The igraph
+function for unweighted, undirected graphs is:
 ```R
-shortest_path_lengths(graph, nodes = V(graph))
+distances(graph, v = V(graph), to = V(graph), weights = NA)
 ```
 
 ## Authors

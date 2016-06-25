@@ -2,7 +2,6 @@
 
 export(cluster_redwalk)
 export(dissimilarity)
-export(shortest_path_lengths)
 importFrom(Matrix,Matrix)
 importFrom(Matrix,solve)
 importFrom(igraph,V)

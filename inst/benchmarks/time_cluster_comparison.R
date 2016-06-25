@@ -3,7 +3,7 @@ library('redwalk', quietly = TRUE, warn.conflicts = FALSE)
 
 comparison_benchmark <- function(graph_name, reps = 5) {
   g <- get(as.character(graph_name))
-  sp <- shortest_path_lengths(g)
+  sp <- distances(g, weights = NA, algorithm = "unweighted")
 
   res <- rbenchmark::benchmark(cluster_redwalk(g),
                                cluster_redwalk(g, short_paths = sp),

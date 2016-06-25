@@ -45,7 +45,7 @@ cutree(cb, k = 2)
 cutree(cb, k = 3)
 
 ## using precomputed shortest paths
-sp <- shortest_path_lengths(dolphins)
+sp <- distances(dolphins, weights = NA)
 cbd <- cluster_redwalk(dolphins, short_paths = sp)
 plot(cbd)
 cutree(cbd, k = 2)

@@ -32,7 +32,9 @@ dissimilarity <- function(graph, nodes = V(graph), short_paths = NULL)
 
   # get shortest paths if needed, or check provided
   if(is.null(short_paths)) {
-    short_paths = shortest_path_lengths(graph, nodes)
+    short_paths = distances(graph, v = nodes, to = nodes, weights = NA)
+    rownames(short_paths) <- NULL
+    colnames(short_paths) <- NULL
   } else {
     # check short_paths arg
     if("dist" %in% class(short_paths)) {
