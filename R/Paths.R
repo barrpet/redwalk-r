@@ -22,5 +22,10 @@
 shortest_path_lengths <- function(graph, nodes = V(graph))
 {
   check_graph(graph)
-  return(distances(graph, v = nodes, to = nodes, weights = NA, algorithm = "unweighted"))
+  nodes <- check_nodes(vcount(graph), nodes)
+  D <- distances(graph, v = nodes, to = nodes, weights = NA,
+                 algorithm = "unweighted")
+  rownames(D) <- NULL
+  colnames(D) <- NULL
+  return(D)
 }

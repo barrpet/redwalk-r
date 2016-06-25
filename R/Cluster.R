@@ -44,16 +44,10 @@
 cluster_redwalk <- function(graph, nodes = V(graph), short_paths = NULL)
 {
   # check graph
-  # TODO: check here or dissimilarity?
   check_graph(graph)
 
   # check nodes
-  # TODO: check here or dissimilarity?
-  nv <- vcount(graph)
-  ns0 <- length(nodes)
-  nodes <- sort(unique(as.integer(nodes)))
-  ns <- length(nodes)
-  stopifnot(ns0 == ns, ns >= 2, all(nodes >= 1), all(nodes <= nv))
+  nodes <- check_nodes(vcount(graph), nodes)
 
   # compute the dissimilarity
   D <- dissimilarity(graph, nodes, short_paths)

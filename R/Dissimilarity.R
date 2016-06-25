@@ -24,13 +24,11 @@ dissimilarity <- function(graph, nodes = V(graph), short_paths = NULL)
 {
   # check the graph
   check_graph(graph)
+  nv <- vcount(graph)
 
   # check the nodes
-  nv <- vcount(graph)
-  ns0 <- length(nodes);
-  nodes <- sort(unique(as.integer(nodes)))
-  ns <- length(nodes);
-  stopifnot(ns0 == ns, ns >= 2, all(nodes >= 1), all(nodes <= nv))
+  nodes <- check_nodes(vcount(graph), nodes)
+  ns <- length(nodes)
 
   # get shortest paths if needed, or check provided
   if(is.null(short_paths)) {
