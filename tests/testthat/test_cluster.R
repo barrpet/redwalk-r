@@ -1,7 +1,7 @@
+library(redwalk, quietly = TRUE, warn.conflicts = FALSE)
 context("cluster")
 
 test_that("cluster_redwalk (karate) works", {
-  library("redwalk");
   g <- karate;
   sp <- distances(g, mode = "out", weights = NA, algorithm = "unweighted");
   cb <- cluster_redwalk(g);
@@ -21,7 +21,6 @@ test_that("cluster_redwalk (karate) works", {
 })
 
 test_that("cluster_redwalk (dolphins) works", {
-  library("redwalk");
   g <- dolphins;
   sp <- distances(g, mode = "out", weights = NA, algorithm = "unweighted");
   cb <- cluster_redwalk(g);
@@ -40,3 +39,6 @@ test_that("cluster_redwalk (dolphins) works", {
     "nmi"), expected = 0.88835, tolerance = 0.001, scale = 1,
     label = "nmi close to 0.888359 (miss 1) for provided shortest paths");
 })
+
+unloadNamespace('redwalk')
+#unloadNamespace('igraph')

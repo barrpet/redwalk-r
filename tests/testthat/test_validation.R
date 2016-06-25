@@ -1,3 +1,4 @@
+library(redwalk, quietly = TRUE, warn.conflicts = FALSE)
 context("validation")
 
 test_that("check_graph works", {
@@ -28,3 +29,6 @@ test_that("check_graph works", {
   expect_error(redwalk:::check_graph(g_dis), label = "disconnected igraph");
   expect_true(redwalk:::check_graph(g_good), label = "good igraph (karate)");
 })
+
+unloadNamespace('redwalk')
+#unloadNamespace('igraph')
