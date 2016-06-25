@@ -44,55 +44,25 @@
 #'
 cluster_redwalk <- function(graph, nodes = V(graph), diss = NULL)
 {
-  check_graph(graph);
-  nv <- vcount(graph);
-  edglst <- as_edgelist(graph, names = FALSE) - 1;
-  storage.mode(edglst) <- "integer";
-  ns0 <- length(nodes);
-  nodes <- sort(unique(as.integer(nodes)));
-  ns <- length(nodes);
-  stopifnot(ns0 == ns, ns >= 2, all(nodes >= 1), all(nodes <= nv));
-  all_nodes <- (ns == nv);
+  # check graph
+  # TODO: check here or dissimilarity?
+  check_graph(graph)
 
-  # Check if diss is provided, calculate if not
-  # TODO: really bad that shortest paths is a matrix rather than dist
-  if(is.null(diss)) {
-    if(all_nodes) {
-      D <- dissimilarity_c(nv, edglst);
-    } else {
-      D <- dissimilarity_subsets_c(nv, edglst, nodes-1);
-    }
-  } else {
-    # if given shortest paths as dist, convert to matrix
-    if("dist" %in% class(diss)) {
-      diss <- as.matrix(diss);
-    }
-    # need diss to be a matrix
-    if(!("matrix" %in% class(diss))) {
-      stop("diss must be of class matrix or dist");
-    }
-    # check square
-    dim_sp <- dim(diss);
-    if(dim_sp[1] != dim_sp[2])
-      stop("diss has incorrect dimensions"); #need square
+  # check nodes
+  # TODO: check here or dissimilarity?
+  nv <- vcount(graph)
+  ns0 <- length(nodes)
+  nodes <- sort(unique(as.integer(nodes)))
+  ns <- length(nodes)
+  stopifnot(ns0 == ns, ns >= 2, all(nodes >= 1), all(nodes <= nv))
 
-    if(all_nodes) {
-      if(dim_sp[1] != nv)
-        stop("diss has incorrect dimensions");
-      D <- dissimilarity_sp_c(nv, edglst, diss);
-    } else {
-      if(dim_sp[1] != nv & dim_sp[1] != ns)
-        stop("diss has incorrect dimensions");
-      if(dim_sp[1] == nv)
-        diss <- diss[nodes,nodes];
-      D <- dissimilarity_subsets_sp_c(nv, edglst, nodes-1, diss);
-    }
-  }
+  # compute the dissimilarity
+  D <- dissimilarity(graph, nodes, diss)
 
-  # return the hclust object
+  # return the hclust object, using fastcluster if available
   if(requireNamespace("fastcluster", quietly = TRUE)) {
-    return(fastcluster::hclust(D, method = "average"));
+    return(fastcluster::hclust(D, method = "average"))
   } else {
-    return(stats::hclust(D, method = "average"));
+    return(stats::hclust(D, method = "average"))
   }
 }
