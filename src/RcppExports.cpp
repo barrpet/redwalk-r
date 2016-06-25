@@ -55,26 +55,3 @@ BEGIN_RCPP
     return __result;
 END_RCPP
 }
-// shortest_path_lengths_c
-redwalk::MatrixUS shortest_path_lengths_c(redwalk::index_t nv, const Rcpp::IntegerMatrix& el);
-RcppExport SEXP redwalk_shortest_path_lengths_c(SEXP nvSEXP, SEXP elSEXP) {
-BEGIN_RCPP
-    Rcpp::RObject __result;
-    Rcpp::traits::input_parameter< redwalk::index_t >::type nv(nvSEXP);
-    Rcpp::traits::input_parameter< const Rcpp::IntegerMatrix& >::type el(elSEXP);
-    __result = Rcpp::wrap(shortest_path_lengths_c(nv, el));
-    return __result;
-END_RCPP
-}
-// shortest_path_lengths_subsets_c
-redwalk::MatrixUS shortest_path_lengths_subsets_c(redwalk::index_t nv, const Rcpp::IntegerMatrix& el, const Rcpp::IntegerVector& s);
-RcppExport SEXP redwalk_shortest_path_lengths_subsets_c(SEXP nvSEXP, SEXP elSEXP, SEXP sSEXP) {
-BEGIN_RCPP
-    Rcpp::RObject __result;
-    Rcpp::traits::input_parameter< redwalk::index_t >::type nv(nvSEXP);
-    Rcpp::traits::input_parameter< const Rcpp::IntegerMatrix& >::type el(elSEXP);
-    Rcpp::traits::input_parameter< const Rcpp::IntegerVector& >::type s(sSEXP);
-    __result = Rcpp::wrap(shortest_path_lengths_subsets_c(nv, el, s));
-    return __result;
-END_RCPP
-}

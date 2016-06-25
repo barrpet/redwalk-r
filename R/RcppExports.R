@@ -17,11 +17,3 @@ dissimilarity_subsets_c <- function(nv, el, s) {
     .Call('redwalk_dissimilarity_subsets_c', PACKAGE = 'redwalk', nv, el, s)
 }
 
-shortest_path_lengths_c <- function(nv, el) {
-    .Call('redwalk_shortest_path_lengths_c', PACKAGE = 'redwalk', nv, el)
-}
-
-shortest_path_lengths_subsets_c <- function(nv, el, s) {
-    .Call('redwalk_shortest_path_lengths_subsets_c', PACKAGE = 'redwalk', nv, el, s)
-}
-

@@ -21,17 +21,6 @@
 #'
 shortest_path_lengths <- function(graph, nodes = V(graph))
 {
-  check_graph(graph);
-  nv <- vcount(graph);
-  edglst <- as_edgelist(graph, names = FALSE) - 1;
-  storage.mode(edglst) <- "integer";
-  ns0 <- length(nodes);
-  nodes <- sort(unique(as.integer(nodes))) - 1;
-  ns <- length(nodes);
-  stopifnot(ns0 == ns, ns >= 2, all(nodes >= 0), all(nodes < nv));
-  if(ns == nv) {
-    return(shortest_path_lengths_c(nv, edglst));
-  } else {
-    return(shortest_path_lengths_subsets_c(nv, edglst, nodes));
-  }
+  check_graph(graph)
+  return(distances(graph, v = nodes, to = nodes, weights = NA, algorithm = "unweighted"))
 }
