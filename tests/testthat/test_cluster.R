@@ -31,13 +31,16 @@ test_that("cluster_redwalk (dolphins) works", {
     method = "nmi"), equals(1),
     label = "same with and without provided shortest paths for 5 communities");
 
+  # expected nmi (different for fastcluster due to tiebreaks)
+  exp_nmi <- 0.8888359
+  if(requireNamespace("fastcluster", quietly = TRUE)) { exp_nmi <- 0.8082501; }
   expect_equal(igraph::compare(stats::cutree(cb, 2), V(g)$membership, method =
-    "nmi"), expected = 0.88835, tolerance = 0.001, scale = 1,
-    label = "nmi close to 0.888359 (miss 1)");
+    "nmi"), expected = exp_nmi, tolerance = 0.001, scale = 1,
+    label = "no short_paths provided, testing against known nmi");
 
   expect_equal(igraph::compare(stats::cutree(cbsp, 2), V(g)$membership, method =
-    "nmi"), expected = 0.88835, tolerance = 0.001, scale = 1,
-    label = "nmi close to 0.888359 (miss 1) for provided shortest paths");
+    "nmi"), expected = exp_nmi, tolerance = 0.001, scale = 1,
+    label = "short_paths provided, testing against known nmi");
 })
 
 unloadNamespace('redwalk')
