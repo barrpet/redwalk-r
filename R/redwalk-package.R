@@ -1,5 +1,5 @@
 #' @importFrom stats hclust as.dist
-#' @importFrom igraph as_edgelist vcount V
+#' @importFrom igraph as_edgelist vcount V as_adj degree distances
 #' @importFrom igraph is.igraph is.directed is.connected is.simple
 # @importFrom igraph graph.laplacian distances degree neighbors is.weighted
 NULL
