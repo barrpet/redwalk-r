@@ -1,9 +1,8 @@
-context("distance")
+library(redwalk, quietly = TRUE, warn.conflicts = FALSE)
+context("dissimilarity")
 
 get_avg_nbr_shrt_path_min <- function(graph, v1, v2)
 {
-  library("igraph");
-  library("redwalk");
   nbrs_v1 <- neighbors(graph, v = v1, mode = "out");
   nbrs_v2 <- neighbors(graph, v = v2, mode = "out");
   sp_v1 <- distances(graph, v = nbrs_v1, to = v2, weights = NA,
@@ -18,8 +17,6 @@ get_avg_nbr_shrt_path_min <- function(graph, v1, v2)
 # Returns an |S|x|S| distance matrix
 d2rversion <- function(G, S)
 {
-  library("igraph", quietly = TRUE, warn.conflicts = FALSE);
-  library("Matrix", quietly = TRUE, warn.conflicts = FALSE);
   nv <- vcount(G);
   stopifnot(is.igraph(G), is.numeric(S) | class(S) == "igraph.vs");
   stopifnot(length(S) > 2, length(S) <= nv, min(S) >= 1, max(S) <= nv);
@@ -48,8 +45,6 @@ d2rversion <- function(G, S)
 }
 
 test_that("dissimilarity (karate) works", {
-  library("igraph");
-  library("redwalk");
   g <- karate;
   edg <- as_edgelist(g, F) - 1L
   storage.mode(edg) <- "integer"
@@ -68,8 +63,6 @@ test_that("dissimilarity (karate) works", {
 })
 
 test_that("dissimilarity subsets (dolphins) works", {
-  library("igraph");
-  library("redwalk");
   g <- dolphins;
   s <- c(2L:12L, 40L:62L);
   edg <- as_edgelist(g, F) - 1L;
@@ -80,3 +73,6 @@ test_that("dissimilarity subsets (dolphins) works", {
   d2g <- round(pmin(d2g, t(d2g)), 8);
   expect_that(as.vector(d2), equals(as.vector(d2g)));
 })
+
+unloadNamespace('redwalk')
+#unloadNamespace('igraph')
