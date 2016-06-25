@@ -1,5 +1,4 @@
-#include "Dissimilarity.h"
-
+/*
 Rcpp::NumericVector dissimilarity_sp_c(const AdjacencyArray& adj,
   const redwalk::MatrixUS& sp)
 {
@@ -172,4 +171,12 @@ Rcpp::NumericVector dissimilarity_subsets_c(const redwalk::idx_t nv, const
 {
   AdjacencyArray adj(nv, el);
   return dissimilarity_subsets_sp_c(adj, s, shortest_path_lengths_subsets_c(adj, s));
+}
+*/
+
+//TODO: remove this when done with this file
+double redwalk_plus_one(double* x)
+{
+  double x_v = *x;
+  return x_v + 1.0;
 }
