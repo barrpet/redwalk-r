@@ -1,24 +1,19 @@
 Package: redwalk
 Type: Package
 Title: Network Community Detection
-Version: 0.7.6
-Date: 2016-02-03
+Version: 0.7.7
+Date: 2016-06-25
 Author: Berenhaut, K.S., Barr, P.S., Kogel, A.M.
 Maintainer: Peter Barr <barrps12@wfu.edu>
 Description: Community detection on networks.
 License: MIT + file LICENSE
-NeedsCompilation: yes
+NeedsCompilation: no
 Depends:
     R (>= 3.0.2),
     igraph (>= 1.0.0)
 Imports:
-    stats,
-    Rcpp (>= 0.11.0),
-    RcppEigen (>= 0.3.2.5.0)
+    stats
 Suggests:
-    fastcluster (>= 1.1.0),
-LinkingTo:
-    Rcpp (>= 0.11.0),
-    RcppEigen (>= 0.3.2.5.0)
+    fastcluster (>= 1.1.0)
 LazyData: true
 RoxygenNote: 5.0.1
